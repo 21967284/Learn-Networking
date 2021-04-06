@@ -1,0 +1,65 @@
+/*Element styling*/
+body {
+    background-color: #660000;
+    color: white;
+}
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: #00CC99;
+}
+
+/*Font classes*/
+.major-mono-font {
+    font-family: 'Major Mono Display', monospace;
+}
+
+.jetbrains-mono-font {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/*text colour classes*/
+.black-text {
+    color: black;
+}
+
+/*cards*/
+/*Obtained from https://glassmorphism.com/*/
+.green-glass-card {
+    background: rgba(0, 204, 153, 0.70);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(3.0px);
+    -webkit-backdrop-filter: blur(3.0px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.transparent-glass-card {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(3.0px);
+    -webkit-backdrop-filter: blur(3.0px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/*button*/
+.btn-purple {
+    color: #660000;
+    background-color: white;
+    border-color: #660000;
+    border-radius: 0.5em;
+    border-width: medium;
+}
+
+.btn-purple:hover {
+    color: white;
+    background-color: #660000;
+    border-color: white;
+}
+
+
+
