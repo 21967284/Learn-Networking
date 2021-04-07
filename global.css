@@ -1,15 +1,15 @@
 /*Element styling*/
 body {
     background-color: #660000;
-    color: white;
+    color: black;
+    font-family: 'JetBrains Mono', monospace;
 }
 
 a {
     color: white;
 }
-
 a:hover {
-    color: #00CC99;
+    color: #339900;
 }
 
 /*Font classes*/
@@ -22,14 +22,14 @@ a:hover {
 }
 
 /*text colour classes*/
-.black-text {
-    color: black;
+.white-text {
+    color: white;
 }
 
 /*cards*/
 /*Obtained from https://glassmorphism.com/*/
 .green-glass-card {
-    background: rgba(0, 204, 153, 0.70);
+    background: rgba(0, 204, 153, 0.65);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     backdrop-filter: blur(3.0px);
     -webkit-backdrop-filter: blur(3.0px);
@@ -38,12 +38,21 @@ a:hover {
 }
 
 .transparent-glass-card {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.35);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     backdrop-filter: blur(3.0px);
     -webkit-backdrop-filter: blur(3.0px);
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.orange-glass-card {
+    background: rgba( 255, 153, 51, 0.70 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 3.0px );
+    -webkit-backdrop-filter: blur( 3.0px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
 /*button*/
@@ -54,12 +63,23 @@ a:hover {
     border-radius: 0.5em;
     border-width: medium;
 }
-
 .btn-purple:hover {
     color: white;
     background-color: #660000;
     border-color: white;
 }
 
+.btn-green {
+    color: #339900;
+    background-color: white;
+    border-color: #339900;
+    border-radius: 0.5em;
+    border-width: medium;
+}
+.btn-green:hover {
+    color: white;
+    background-color: #339900;
+    border-color: white;
+}
 
 
