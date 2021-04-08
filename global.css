@@ -1,6 +1,15 @@
+/*Consistent Colours*/
+:root{
+    --purple: #300a24;
+    --green-text: #4e9c00;
+    --green: #70E000;
+    --orange: #FAA613;
+    --shadow: #11030D;
+}
+
 /*Element styling*/
 body {
-    background-color: #660000;
+    background-color: var(--purple);
     color: black;
     font-family: 'JetBrains Mono', monospace;
 }
@@ -9,7 +18,7 @@ a {
     color: white;
 }
 a:hover {
-    color: #339900;
+    color: var(--green-text);
 }
 
 /*Font classes*/
@@ -29,8 +38,8 @@ a:hover {
 /*cards*/
 /*Obtained from https://glassmorphism.com/*/
 .green-glass-card {
-    background: rgba(0, 204, 153, 0.65);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    background:var(--green);
+    box-shadow: 0 8px 32px 0 var(--shadow);
     backdrop-filter: blur(3.0px);
     -webkit-backdrop-filter: blur(3.0px);
     border-radius: 10px;
@@ -39,7 +48,7 @@ a:hover {
 
 .transparent-glass-card {
     background: rgba(255, 255, 255, 0.35);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    box-shadow: 0 8px 32px 0 var(--shadow);
     backdrop-filter: blur(3.0px);
     -webkit-backdrop-filter: blur(3.0px);
     border-radius: 10px;
@@ -47,8 +56,8 @@ a:hover {
 }
 
 .orange-glass-card {
-    background: rgba( 255, 153, 51, 0.70 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    background: var(--orange);
+    box-shadow: 0 8px 32px 0 var(--shadow);
     backdrop-filter: blur( 3.0px );
     -webkit-backdrop-filter: blur( 3.0px );
     border-radius: 10px;
@@ -57,28 +66,28 @@ a:hover {
 
 /*button*/
 .btn-purple {
-    color: #660000;
+    color: var(--purple);
     background-color: white;
-    border-color: #660000;
+    border-color: var(--purple);
     border-radius: 0.5em;
     border-width: medium;
 }
 .btn-purple:hover {
     color: white;
-    background-color: #660000;
+    background-color: var(--purple);
     border-color: white;
 }
 
 .btn-green {
-    color: #339900;
+    color: #5CB800;
     background-color: white;
-    border-color: #339900;
+    border-color: #5CB800;
     border-radius: 0.5em;
     border-width: medium;
 }
 .btn-green:hover {
     color: white;
-    background-color: #339900;
+    background-color: #5CB800;
     border-color: white;
 }
 

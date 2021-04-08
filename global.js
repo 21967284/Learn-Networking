@@ -3,12 +3,12 @@ const NAVIGATION_ITEMS = [
     {
         label: 'home',
         icon: 'house',
-        link: 'www.google.com'
+        link: '../otherPages/home.html'
     },
     {
         label: 'Login',
         icon: 'door-open',
-        link: 'www.google.com'
+        link: '../otherPages/login.html'
     },
     {
         label: 'App',
@@ -18,6 +18,11 @@ const NAVIGATION_ITEMS = [
     {
         label: 'Transport',
         icon: 'truck',
+        link: 'www.google.com'
+    },
+    {
+        label: 'Network',
+        icon: 'hdd-network',
         link: 'www.google.com'
     },
     {
@@ -43,7 +48,7 @@ const NAVIGATION_ITEMS = [
     {
         label: 'Result',
         icon: 'check2-square',
-        link: 'www.google.com'
+        link: '../otherPages/results.html'
     }
 ]
 
