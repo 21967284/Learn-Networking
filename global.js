@@ -88,7 +88,11 @@ window.onload = onInit;
 function onInit() {
     constructNavigation();
     constructHeaderBar();
-    explanationMode();
+
+    //non content pages will not have explanation/results/quiz cards, so we do not need to turn on explanation mode
+    if(isContentPage()) {
+        explanationMode();
+    }
 }
 
 /**
@@ -150,6 +154,15 @@ function resultsMode() {
 function evaluateSubmission() {
     //something to send data to server and retrieve results
     resultsMode();
+}
+
+/**
+ * Determines if current page is content page or not
+ * @returns {boolean}
+ */
+function isContentPage() {
+    const pathName = window.location.pathname;
+    return Boolean(pathName.match('content'));
 }
 
 
