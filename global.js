@@ -1,56 +1,68 @@
 //constants
-const NAVIGATION_ITEMS = [
+const PAGE_ITEMS = [
     {
         label: 'home',
         icon: 'house',
-        link: '../otherPages/home.html'
+        link: '../otherPages/home.html',
+        pageTitle: 'A journey through the tcp/ip model'
     },
     {
         label: 'Login',
         icon: 'door-open',
-        link: '../otherPages/login.html'
+        link: '../otherPages/login.html',
+        pageTitle: 'Login'
     },
     {
         label: 'App',
         icon: 'window',
-        link: 'www.google.com'
+        link: '../contentPages/application-forward.html',
+        pageTitle: 'Application Layer'
     },
     {
         label: 'Transport',
         icon: 'truck',
-        link: 'www.google.com'
+        link: 'www.google.com',
+        pageTitle: 'Transport Layer'
     },
     {
         label: 'Network',
         icon: 'hdd-network',
-        link: 'www.google.com'
+        link: 'www.google.com',
+        pageTitle: 'Network Layer'
+
     },
     {
         label: 'Link',
         icon: 'link',
-        link: 'www.google.com'
+        link: 'www.google.com',
+        pageTitle: 'Link Layer'
     },
     {
         label: 'Network',
         icon: 'hdd-network',
-        link: 'www.google.com'
+        link: 'www.google.com',
+        pageTitle: 'Network Layer'
     },
     {
         label: 'Transport',
         icon: 'truck',
-        link: 'www.google.com'
+        link: 'www.google.com',
+        pageTitle: 'Transport Layer'
     },
     {
         label: 'App',
         icon: 'window',
-        link: 'www.google.com'
+        link: 'www.google.com',
+        pageTitle: 'Application Layer'
     },
     {
         label: 'Result',
         icon: 'check2-square',
-        link: '../otherPages/results.html'
+        link: '../otherPages/results.html',
+        pageTitle: 'Results'
     }
 ]
+
 
 const NAVIGATION_ITEM_TEMPLATE = ({label, icon, link}) => `
     <li class="nav-item"> 
@@ -60,6 +72,13 @@ const NAVIGATION_ITEM_TEMPLATE = ({label, icon, link}) => `
       </a>
     </li>`;
 
+const HEADER_BAR_TEMPLATE = ({pageTitle}) => `
+   <div class="transparent-glass-card p-3 m-3">
+      <h1 class="major-mono-font white-text d-flex justify-content-center">Networking</h1>
+
+      <h2 class="major-mono-font white-text d-flex justify-content-center mb-30">${pageTitle}</h2>
+    </div>`;
+
 window.onload = onInit;
 
 /**
@@ -68,16 +87,37 @@ window.onload = onInit;
  */
 function onInit() {
     constructNavigation();
-    explanationMode();
+    constructHeaderBar();
+
+    //non content pages will not have explanation/results/quiz cards, so we do not need to turn on explanation mode
+    if(isContentPage()) {
+        explanationMode();
+    }
 }
 
 /**
  * Constructs the navigation bar
  * Uses html template specified in NAVIGATION_ITEM_TEMPLATE and
- * navigation items specified in NAVGIATION_ITEMS
+ * navigation items specified in PAGE_ITEMS
  */
 function constructNavigation() {
-    $('#navigationBar').html(NAVIGATION_ITEMS.map(NAVIGATION_ITEM_TEMPLATE).join(''));
+    $('#navigationBar').html(PAGE_ITEMS.map(NAVIGATION_ITEM_TEMPLATE).join(''));
+}
+
+/**
+ * Constructs header bar
+ * Uses html template specified in HEADER_BAR_TEMPLATE
+ * Determine current page using path name
+ * Note this is dependent on the current directory naming convention - if directory is changed, this will need to be updated
+ */
+function constructHeaderBar() {
+    const pathName = window.location.pathname;
+    const indexOfCurrentPage = pathName.match('Pages/').index;
+    const identifier = pathName.slice( indexOfCurrentPage );
+
+    const currentPage = PAGE_ITEMS.filter((item) => item.link.search(identifier) !== -1);
+
+    $('#headerBar').html(currentPage.map(HEADER_BAR_TEMPLATE).join(''));
 }
 
 /**
@@ -114,6 +154,15 @@ function resultsMode() {
 function evaluateSubmission() {
     //something to send data to server and retrieve results
     resultsMode();
+}
+
+/**
+ * Determines if current page is content page or not
+ * @returns {boolean}
+ */
+function isContentPage() {
+    const pathName = window.location.pathname;
+    return Boolean(pathName.match('content'));
 }
 
 
