@@ -257,3 +257,20 @@ function hideElementById(id) {
     });
     element.classList.add("d-none");
 }
+
+/**
+ * Hide/show login or register pages when button is clicked
+ */
+function loginPage(){
+    hideElementById('registerForm');
+    hideElementById('loginButton');
+    showElementById('loginForm');
+    showElementById('registerButton');
+}
+
+function registerPage(){
+    showElementById('registerForm');
+    showElementById('loginButton');
+    hideElementById('loginForm');
+    hideElementById('registerButton');
+}

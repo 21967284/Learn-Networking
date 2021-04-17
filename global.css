@@ -91,4 +91,9 @@ a:hover {
     border-color: white;
 }
 
+/*form*/
+form > input {
+    color:black
+}
+
 

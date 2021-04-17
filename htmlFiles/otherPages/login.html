@@ -8,9 +8,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
         <!--Bootstrap JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-          crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
       
         <!-- script -->
         <script src="../../global.js"></script>
@@ -28,5 +27,57 @@
             <div class="col-10">
               <!-- header -->
               <div id="headerBar"></div>
+
+              <!-- login/register input box -->
+              <div class="row vertical-center-row">
+                <div class="white-text text-center col-md-4 col-md-offset-4 transparent-glass-card">
+                    <!-- login form -->
+                    <div id="loginForm">
+                    <h1>Log In</h1>
+                  <form> <!--action="login.php" or something-->
+                    <label for="email">Email</label><br>
+                    <input type="email" name="email"><br>
+                    <label for="pword">Password</label><br>
+                    <input type="password" name="pword"><br>
+                    <label for="submit">Login</label><br>
+                    <input type="submit" name="submit" class="btn-purple"><br>
+                    <input type="checkbox" name="remember"> Remember me
+                  </form>
+                  </div>
+                  <!-- register form -->
+                  <div id="registerForm" style="display: none;">
+                      <h1>Register</h1>
+                  <form> <!--action="register.php" or something-->
+                    <label for="fName">First Name</label><br>
+                    <input type="text" name="fName"><br>
+                    <label for="lName">Last Name</label><br>
+                    <input type="text" name="lName"><br>
+                    <label for="email">Email</label><br>
+                    <input type="email" name="email"><br>
+                    <label for="pword">Password</label><br>
+                    <input type="password" name="pword"><br>
+                    <label for="confirm">Confirm Password</label><br>
+                    <input type="password" name="confirm"><br>
+                    <label for="submit">Login</label><br>
+                    <input type="submit" name="submit" class="btn-purple"><br>
+                    <input type="checkbox" name="remember"> Remember me
+                  </form>
+                  </div>
+                </div>
+                <!-- toggle resiter/login form -->
+                <div id="registerButton" class="col-md-2 col-md-offset-4">
+                    <div class="white-text">Need an account?</div>
+                    <button class="btn btn-purple register-btn" onclick="registerPage();">Register</button>
+                </div>
+                <div id="loginButton" class="col-md-2 col-md-offset-4" style="display: none;">
+                    <div class="white-text">Already have an account?</div>
+                    <button class="btn btn-purple register-btn" onclick="loginPage();">Log in</button>
+                </div>
+                <!-- reset password #TODO MIGHT ADD FUNCTIONALITY LATER-->
+                <div class="col-md-2 text-right">
+                    <div class="white-text">Forgot your password?</div>
+                    <button class="btn btn-purple">Reset Password</button>
+                </div>
+              </div>
             </div>
     </body>
