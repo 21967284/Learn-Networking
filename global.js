@@ -79,6 +79,47 @@ const HEADER_BAR_TEMPLATE = ({pageTitle}) => `
       <h2 class="major-mono-font white-text d-flex justify-content-center mb-30">${pageTitle}</h2>
     </div>`;
 
+const HEAD_IMPORTS = [
+    {
+        id: "bootstrapcss",
+        type: 'link',
+        url: "https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css",
+        rel: "stylesheet",
+        integrity: "sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6", 
+        crossorigin: "anonymous"
+    },
+    {
+        id: "bootstrapcdn",
+        type: 'link',
+        url: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css",
+        rel: "stylesheet"
+    },
+    {
+        id: "bootstrapicons",
+        type: 'link',
+        url: "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css",
+        rel: "stylesheet"
+    },
+    {
+        id: "gfpreconnect",
+        type: 'link',
+        url: "https://fonts.gstatic.com",
+        rel: "preconnect"
+    },
+    {
+        id: "gffonts",
+        type: 'link',
+        url: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200;400&family=Major+Mono+Display&family=Press+Start+2P&display=swap",
+        rel: "stylesheet"
+    },
+    {
+        id: "globalcss",
+        type: 'link',
+        url: "../../global.css", 
+        rel: "stylesheet"
+    }
+]
+
 window.onload = onInit;
 
 /**
@@ -86,12 +127,30 @@ window.onload = onInit;
  * Calls functions that requires the html template to finish loading first
  */
 function onInit() {
+    HEAD_IMPORTS.forEach(importElement);
     constructNavigation();
     constructHeaderBar();
 
     //non content pages will not have explanation/results/quiz cards, so we do not need to turn on explanation mode
     if(isContentPage()) {
         explanationMode();
+    }
+}
+
+/**
+ * Imports a given link into the head
+ * Appends an element to the document head using its details found in the constants section
+ * uses element.type instead of 'link' in case we want to add other types to import
+ */
+ function importElement(element){
+    if (!document.getElementById(element.id))
+    {
+        var head  = document.getElementsByTagName('head')[0];
+        var newElement = document.createElement(element.type);
+        newElement.id = element.id;
+        newElement.rel = element.rel;
+        newElement.href = element.url;
+        head.appendChild(newElement);
     }
 }
 
