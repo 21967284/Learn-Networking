@@ -13,6 +13,12 @@ const PAGE_ITEMS = [
         pageTitle: 'Login'
     },
     {
+        label: 'Progress',
+        icon: 'check2-square',
+        link: '../otherPages/progress.html',
+        pageTitle: 'Progress'
+    },
+    {
         label: 'App',
         icon: 'window',
         link: '../contentPages/application-forward.html',
@@ -54,12 +60,6 @@ const PAGE_ITEMS = [
         icon: 'window',
         link: 'www.google.com',
         pageTitle: 'Application Layer'
-    },
-    {
-        label: 'Result',
-        icon: 'check2-square',
-        link: '../otherPages/results.html',
-        pageTitle: 'Results'
     }
 ]
 
@@ -79,7 +79,7 @@ const HEADER_BAR_TEMPLATE = ({pageTitle}) => `
       <h2 class="major-mono-font white-text d-flex justify-content-center mb-30">${pageTitle}</h2>
     </div>`;
 
-const HEAD_IMPORTS = [
+const STYLESHEET_ITEMS = [
     {
         id: "bootstrapcss",
         type: 'link',
@@ -87,12 +87,6 @@ const HEAD_IMPORTS = [
         rel: "stylesheet",
         integrity: "sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6", 
         crossorigin: "anonymous"
-    },
-    {
-        id: "bootstrapcdn",
-        type: 'link',
-        url: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css",
-        rel: "stylesheet"
     },
     {
         id: "bootstrapicons",
@@ -127,7 +121,7 @@ window.onload = onInit;
  * Calls functions that requires the html template to finish loading first
  */
 function onInit() {
-    HEAD_IMPORTS.forEach(importElement);
+    loadStyleSheets();
     constructNavigation();
     constructHeaderBar();
 
@@ -135,6 +129,10 @@ function onInit() {
     if(isContentPage()) {
         explanationMode();
     }
+}
+
+function loadStyleSheets() {
+    STYLESHEET_ITEMS.forEach(importElement);
 }
 
 /**
