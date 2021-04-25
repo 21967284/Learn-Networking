@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <!-- login/register input box -->
+    <div class="row vertical-center-row justify-content-md-center">
+        <div class="white-text text-center col-md-4 col-md-offset-4 transparent-glass-card">
+            <!-- register form -->
+            <div id="registerForm">
+                <form action="" method="post" novalidate>
+                    {{ rForm.hidden_tag() }}
+                    <p>
+                        {{ rForm.firstname.label }}<br>
+                        {{ rForm.firstname(size=32) }}
+                    </p>
+                    <p>
+                        {{ rForm.lastname.label }}<br>
+                        {{ rForm.lastname(size=32) }}
+                    </p>
+                    <p>
+                        {{ rForm.username.label }}<br>
+                        {{ rForm.username(size=32) }}<br>
+                        {% for error in rForm.username.errors %}
+                        <span>[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ rForm.email.label }}<br>
+                        {{ rForm.email(size=32) }}<br>
+                        {% for error in rForm.email.errors %}
+                        <span>[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ rForm.password.label }}<br>
+                        {{ rForm.password(size=32) }}<br>
+                        {% for error in rForm.password.errors %}
+                        <span>[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ rForm.confirmpassword.label }}<br>
+                        {{ rForm.confirmpassword(size=32) }}<br>
+                        {% for error in rForm.confirmpassword.errors %}
+                        <span>[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                    <p>{{ rForm.submit() }}</p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row align-items-end justify-content-md-center">
+        <div id="loginButton" class="col-md-2 col-md-offset-4">
+            <div class="white-text">Already have an account?</div>
+            <a class="btn btn-purple register-btn" href="{{ url_for('login') }}">Log in</a>
+        </div>
+        <!-- reset password #TODO MIGHT ADD FUNCTIONALITY LATER-->
+        <div class="col-md-2 align-self-end">
+            <div class="white-text">Forgot your password?</div>
+            <button class="btn btn-purple">Reset Password</button>
+        </div>
+    </div>
+
+{% endblock %}
