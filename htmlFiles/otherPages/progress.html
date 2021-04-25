@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!--Bootstrap JS-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"></script>
 
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -31,13 +32,11 @@
 
     <hr class="my-3">
 
-
-
-    <!-- tiles -->
     <div class="mx-5">
       <!-- Progress -->
       <div class="flex-row d-flex">
-        <button class="green-glass-card p-3 m-3" id="progress-button" data-toggle="modal" data-target="#progressModal">
+        <!-- Button trigger modal -->
+        <button type="button" class="green-glass-card p-3 m-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
           <h4 class="white-text">Progress</h4>
           <div>50%</div>
         </button>
@@ -46,30 +45,31 @@
         <div class="orange-glass-card p-3 m-3" id="accuracy-card">
           <h4 class="white-text">Accuracy</h4>
           <div> 70%</div>
-          <div>Ranking </div>
+          <div>Ranking</div>
         </div>
       </div>
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="progressModal" tabindex="-1" role="dialog" aria-labelledby="progressModal" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Progress</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <h5 class="modal-title" id="exampleModalLabel">Progress by topic</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
+
           <div class="modal-body">
-            This modal will show a breakdown of their progress
+            Insert table breakdown
           </div>
+
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
