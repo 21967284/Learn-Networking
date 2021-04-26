@@ -1,0 +1,102 @@
+/*Font Imports*/
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200;400&family=Major+Mono+Display&family=Press+Start+2P&display=swap');
+
+/*Consistent Colours*/
+:root{
+    --purple: #300a24;
+    --green-text: #4e9c00;
+    --green: #70E000;
+    --orange: #FAA613;
+    --shadow: #11030D;
+}
+
+/*Element styling*/
+body {
+    background-color: var(--purple);
+    color: black;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+a {
+    color: white;
+}
+a:hover {
+    color: var(--green-text);
+}
+
+/*Font classes*/
+.major-mono-font {
+    font-family: 'Major Mono Display', monospace;
+}
+
+.jetbrains-mono-font {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/*text colour classes*/
+.white-text {
+    color: white;
+}
+
+/*cards*/
+/*Obtained from https://glassmorphism.com/*/
+.green-glass-card {
+    background:var(--green);
+    box-shadow: 0 8px 32px 0 var(--shadow);
+    backdrop-filter: blur(3.0px);
+    -webkit-backdrop-filter: blur(3.0px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.transparent-glass-card {
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 8px 32px 0 var(--shadow);
+    backdrop-filter: blur(3.0px);
+    -webkit-backdrop-filter: blur(3.0px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.orange-glass-card {
+    background: var(--orange);
+    box-shadow: 0 8px 32px 0 var(--shadow);
+    backdrop-filter: blur( 3.0px );
+    -webkit-backdrop-filter: blur( 3.0px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+/*button*/
+.btn-purple {
+    color: var(--purple);
+    background-color: white;
+    border-color: var(--purple);
+    border-radius: 0.5em;
+    border-width: medium;
+}
+.btn-purple:hover {
+    color: white;
+    background-color: var(--purple);
+    border-color: white;
+}
+
+.btn-green {
+    color: #5CB800;
+    background-color: white;
+    border-color: #5CB800;
+    border-radius: 0.5em;
+    border-width: medium;
+}
+.btn-green:hover {
+    color: white;
+    background-color: #5CB800;
+    border-color: white;
+}
+
+/*form - add selectors for error messages and spans*/
+form > input {
+    color:black
+}
+
+

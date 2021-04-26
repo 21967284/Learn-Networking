@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <!-- login/register input box -->
+    <div class="row vertical-center-row justify-content-md-center">
+        <div class="white-text text-center col-md-4 col-md-offset-4 transparent-glass-card">
+            <!-- login form -->
+            <div id="loginForm">
+                <form action="" method="post" novalidate>
+                    {{ lForm.hidden_tag() }}
+                    <p>
+                        {{ lForm.username.label }}<br>
+                        {{ lForm.username(size=32) }}<br>
+                        {% for error in lForm.username.errors %}
+                        <span>[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ lForm.password.label }}<br>
+                        {{ lForm.password(size=32) }}<br>
+                        {% for error in lForm.password.errors %}
+                        <span>[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                    <p>{{ lForm.remember_me() }} {{lForm.remember_me.label }}</p>
+                    <p>{{ lForm.submit() }}</p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row align-items-end justify-content-md-center">
+        <!-- toggle resiter/login form -->
+        <div id="registerButton" class="col-md-2 col-md-offset-4">
+            <div class="white-text">Need an account?</div>
+            <a class="btn btn-purple register-btn" href="{{ url_for('register') }}">Register</a>
+        </div>
+        <!-- reset password #TODO MIGHT ADD FUNCTIONALITY LATER-->
+        <div class="col-md-2 align-self-end">
+            <div class="white-text">Forgot your password?</div>
+            <button class="btn btn-purple">Reset Password</button>
+        </div>
+    </div>
+
+{% endblock %}
