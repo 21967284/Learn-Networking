@@ -1,3 +1,5 @@
+## define the urls of each webpage ##
+
 from flask import render_template, request, redirect, url_for, flash
 from app import app, db
 from app.forms import LoginForm, RegisterForm
@@ -5,14 +7,12 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 from werkzeug.urls import url_parse
 
-@app.route('/home')
+# homepage (set to the root page)
+@app.route('/')
 def home():
     return render_template('home.html', title="A journey through the tcp/ip model")
 
-@app.route('/')
-def welcome():
-    return render_template('welcome.html')
-
+# login page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     #don't allow logged in users to access this page
@@ -40,11 +40,14 @@ def login():
 
     return render_template('login.html', title="Login", lForm=lForm)
 
+# logout button replaces login if the user is authenticated
 @app.route('/logout')
 def logout():
     logout_user()
+    # if the link is clicked, log the user out then reroute them back to home
     return redirect(url_for('home'))
 
+# register page - this function is very similar to the login function
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -55,36 +58,31 @@ def register():
     if rForm.validate_on_submit():
         user = User(first_name=rForm.firstname.data, last_name=rForm.lastname.data, username=rForm.username.data, email=rForm.email.data)
         user.set_password(rForm.password.data)
+        # add the new user to the database and save the changes
         db.session.add(user)
         db.session.commit()
+        # we can edit the style of flash messages to help the website interact with users
         flash('Congratulations {}, you are now a registered user!'.format(rForm.firstname.data))
         return redirect(url_for('login'))
 
     return render_template('register.html', title="Register", rForm=rForm)
+
+# all empty pages (yet to be implemented so far)
 
 # we may require user to be logged in to view their progress page
 @app.route('/progress')
 @login_required
 def progress():
     return
-@app.route('/application_forward')
-def application_forward():
+@app.route('/application')
+def application():
     return
-@app.route('/transport_forward')
-def transport_forward():
+@app.route('/transport')
+def transport():
     return
-@app.route('/network_forward')
-def network_forward():
+@app.route('/network')
+def network():
     return
 @app.route('/link')
 def link():
-    return
-@app.route('/network_reverse')
-def network_reverse():
-    return
-@app.route('/transport_reverse')
-def transport_reverse():
-    return
-@app.route('/application_reverse')
-def application_reverse():
     return

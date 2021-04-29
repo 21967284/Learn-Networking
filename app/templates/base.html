@@ -36,9 +36,8 @@
               <ul class=" nav flex-column" id="navigationBar">
                 <!-- each element in nav_items is of the format: [label, icon, link] -->
                 {% with nav_items = [['Home','house','home'],['Login','door-open','login'],['Logout','door-closed','logout'],
-                ['Progress','check2-square','progress'],['App','window','application_forward'],['Transport','truck','transport_forward'],
-                ['Network','hdd-network','network_forward'],['Link','link','link'],['Network','hdd-network','network_reverse'],
-                ['Transport','truck','transport_reverse'],['App','window','application_reverse']] %}
+                ['Progress','check2-square','progress'],['App','window','application'],['Transport','truck','transport'],
+                ['Network','hdd-network','network'],['Link','link','link']] %}
                 <!-- loop through nav_items and place them into the navigation bar -->
                 {% for nav_item in nav_items %}
                 <!-- skip login in user is already logged in, likewise, skip logout if user is not logged in -->
@@ -67,6 +66,7 @@
                   </div>
               </div>
                 
+              <!-- display flashed messages (definitely prone to change style or position) -->
               {% with messages = get_flashed_messages() %}
               {% if messages %}
               <ul>
@@ -77,6 +77,7 @@
               {% endif %}
               {% endwith %}
         
+              <!-- this block holds the individual page content -->
               {% block content %}{% endblock %}
 
             </div>
