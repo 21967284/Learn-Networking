@@ -1,0 +1,14 @@
+/**
+Boostrap's native sizing utility does not support device size breakpoints
+Custom css class so that we can have custom width for medium sized devices (>768px)
+ */
+@media (min-width: 768px) {
+    .w-md-100 {
+        width: 100% !important;
+    }
+
+    .w-md-50 {
+        width: 50% !important;
+    }
+
+}

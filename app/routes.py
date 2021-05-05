@@ -1,10 +1,10 @@
 ## define the urls of each webpage ##
 
-from flask import render_template, request, redirect, url_for, flash
 from app import app, db
 from app.forms import LoginForm, RegisterForm
-from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
+from flask import render_template, request, redirect, url_for, flash, jsonify
+from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 
 # homepage (set to the root page)
@@ -69,20 +69,86 @@ def register():
 
 # all empty pages (yet to be implemented so far)
 
-# we may require user to be logged in to view their progress page
 @app.route('/progress')
 @login_required
 def progress():
-    return
+    return render_template('progress.html', title="Progress")
+
+
 @app.route('/application')
+@login_required
 def application():
     return
+
+
 @app.route('/transport')
+@login_required
 def transport():
     return
+
+
 @app.route('/network')
+@login_required
 def network():
     return
+
+
 @app.route('/link')
+@login_required
 def link():
-    return
+    return render_template('content.html', title="Application")
+
+
+@app.route('/progress-data')
+@login_required
+def progress_data():
+    # TODO - mock data - to be replaced
+    progress_by_topic = {
+        'Application': True,
+        'Transport': False,
+        'Network': True,
+        'Link': False,
+    }
+    return progress_by_topic
+
+
+@app.route('/accuracy-data')
+@login_required
+def accuracy_data():
+    # TODO - mock data - to be replaced
+    accuracy_by_topic = {
+        'Application': 100,
+        'Transport': 10,
+        'Network': 50,
+        'Link': 30,
+    }
+    return accuracy_by_topic
+
+
+@app.route('/retrieve-questions', methods=['GET', 'POST'])
+@login_required
+def retrieve_questions():
+    # use this topic variable to pull up the correct questions from database
+    topic = request.args.get('topic')
+
+    # TODO - mock data - to be replaced
+    questions_array = [
+        {
+            'questionContent': 'What is 1 + 1?',
+            'questionId': 'question1',
+            'answerOptions': [1, 2, 3, 4]
+        },
+        {
+            'questionContent': 'What is 3 + 1?',
+            'questionId': 'question4',
+            'answerOptions': [3, 4, 5, 6]
+        },
+        {
+            'questionContent': 'What is 5 + 1?',
+            'questionId': 'question6',
+            'answerOptions': [5, 6, 7, 8]
+        }
+    ]
+    return jsonify(data=questions_array)
+
+

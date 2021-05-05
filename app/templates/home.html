@@ -2,9 +2,7 @@
 
 {% block content %}
 
-    <hr class="my-3">
-
-    <div class="mx-5">
+    <div class="mx-5 my-3">
       <!-- Explanation/text portion -->
       <div class="green-glass-card p-3" id="explanation-card">
         <h4 class="white-text">Welcome!</h4>
@@ -28,7 +26,7 @@
                 <br>
                 <span style="margin-left:20px">If you would like to save your progress or see how you've been going in my (FUN!) quizzes, make sure you log in!</span>
                 <br>
-                <button type="button" class=" btn btn-purple btn-md" onClick="location.href='../otherPages/login.html'">
+                <button type="button" class=" btn btn-purple btn-md" onClick="location.href='{{ url_for('login')}}'">
                   Login
                   <i class="bi bi-door-open"></i>
               </div>
