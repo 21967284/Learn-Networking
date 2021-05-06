@@ -8,6 +8,7 @@
     --green: #70E000;
     --orange: #FAA613;
     --shadow: #11030D;
+    --yellow: #f7ef00;
 }
 
 /*Element styling*/
@@ -22,6 +23,10 @@ a {
 }
 a:hover {
     color: var(--green-text);
+}
+
+form > input {
+    color:black
 }
 
 /*Font classes*/
@@ -94,9 +99,12 @@ a:hover {
     border-color: white;
 }
 
-/*form - add selectors for error messages and spans*/
-form > input {
-    color:black
+/*Error styling*/
+.validation-error {
+    color: var(--orange);
+    font-size: 0.9rem;
 }
 
-
+.bi-star-fill {
+    color: var(--yellow);
+}

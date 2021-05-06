@@ -5,21 +5,21 @@ from app.models import User
 
 # handles fields of the login form
 class LoginForm(FlaskForm):
-    username = StringField('Username or Email', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    username = StringField('Username or Email', validators=[DataRequired("Enter a username or email")])
+    password = PasswordField('Password', validators=[DataRequired("Enter a password")])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField("Sign In")
 
 # handles fields of the register form
 class RegisterForm(FlaskForm):
-    firstname = StringField('First Name', validators=[DataRequired()])
+    firstname = StringField('First Name', validators=[DataRequired("Enter your first name")])
     # might not need to make last name necessary (or even store it at all, will depend on how we use it)
-    lastname = StringField('Last Name', validators=[DataRequired()])
-    username = StringField('Username', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    lastname = StringField('Last Name', validators=[DataRequired("Enter your last name")])
+    username = StringField('Username', validators=[DataRequired("Enter a username")])
+    email = StringField('Email', validators=[DataRequired("Enter your email"), Email("Enter a valid email address")])
+    password = PasswordField('Password', validators=[DataRequired("Enter a password")])
     # make sure the password and confirmpassword fields are equal
-    confirmpassword = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    confirmpassword = PasswordField('Confirm Password', validators=[DataRequired("Enter a password"), EqualTo('password', "Passwords must match")])
     submit = SubmitField("Register Account")
 
     # confirm that the username is unique in the database

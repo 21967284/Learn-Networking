@@ -4,25 +4,25 @@
 
     <!-- login/register input box -->
     <div class="row vertical-center-row justify-content-md-center">
-        <div class="white-text text-center col-md-4 col-md-offset-4 transparent-glass-card">
+        <div class="white-text text-center p-3 col-md-4 col-md-offset-4 transparent-glass-card ">
             <!-- login form -->
             <div id="loginForm">
                 <form action="" method="post" novalidate>
                     {{ lForm.hidden_tag() }}
-                    <p>
+                    <div class="mb-2">
                         {{ lForm.username.label }}<br>
                         {{ lForm.username(size=32) }}<br>
                         {% for error in lForm.username.errors %}
-                        <span>[{{ error }}]</span>
+                            <p class="validation-error">{{ error }}</p>
                         {% endfor %}
-                    </p>
-                    <p>
+                    </div>
+                    <div class="mb-2">
                         {{ lForm.password.label }}<br>
                         {{ lForm.password(size=32) }}<br>
                         {% for error in lForm.password.errors %}
-                        <span>[{{ error }}]</span>
+                            <p class="validation-error">{{ error }}</p>
                         {% endfor %}
-                    </p>
+                    </div>
                     <p>{{ lForm.remember_me() }} {{lForm.remember_me.label }}</p>
                     <p>{{ lForm.submit() }}</p>
                 </form>

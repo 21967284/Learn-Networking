@@ -1,1 +1,2 @@
-FLASK_APP=microblog.py
+FLASK_APP=networking.py
+FLASK_ENV=development

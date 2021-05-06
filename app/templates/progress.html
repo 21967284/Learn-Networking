@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--  Main content section-->
+<script src="{{ url_for('static', filename='javascript/progress.js') }}"></script>
+
+<div class="mx-5">
+    <div class="d-flex flex-column flex-lg-row">
+        <!-- Accuracy -->
+        <div class="orange-glass-card p-3 m-3 w-100 w-md-50" id="accuracy-card">
+            <h4 class="white-text card-title d-flex justify-content-center">Accuracy</h4>
+            <!-- Percentage-->
+            <div>
+                <div class="spinner-border" role="status" id="overall-accuracy-percentage-spinner">
+                    <span class="visually-hidden">Loading accuracy percentage...</span>
+                </div>
+
+                <p class="d-flex justify-content-center mb-0" id="overall-accuracy-percentage"></p>
+            </div>
+
+            <!-- Star -->
+            <div>
+                <div class="spinner-border" role="status" id="accuracy-star-spinner">
+                    <span class="visually-hidden">Loading accuracy stars...</span>
+                </div>
+
+                <div class="d-flex flex-row justify-content-center">
+                    <div id="accuracy-star-container"></div>
+                    <p>/5</p>
+                </div>
+            </div>
+
+            <!--Chart-->
+            <div class="card mt-3 w-auto h-auto d-none d-sm-block">
+                <canvas id="accuracy-chart"></canvas>
+            </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="orange-glass-card p-3 m-3 w-100 w-md-50" id="progress-card">
+            <h4 class="card-title d-flex white-text justify-content-center">Progress</h4>
+            <!--Percentage-->
+            <div>
+                <div class="spinner-border" role="status" id="overall-progress-percentage-spinner">
+                    <span class="visually-hidden">Loading progress percentage...</span>
+                </div>
+
+                <p class="d-flex justify-content-center mb-0" id="overall-progress-percentage"></p>
+            </div>
+
+            <!-- Star  -->
+            <div>
+                <div class="spinner-border" role="status" id="progress-star-spinner">
+                    <span class="visually-hidden">Loading progress stars...</span>
+                </div>
+
+                <div class="d-flex flex-row justify-content-center">
+                    <div id="progress-star-container"></div>
+                    <p>/4</p>
+                </div>
+            </div>
+
+            <!--Chart-->
+            <div class="card mt-3 w-auto h-auto d-none d-sm-block">
+                <canvas id="progress-chart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
