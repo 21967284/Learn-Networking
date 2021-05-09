@@ -11,14 +11,14 @@
                     {{ lForm.hidden_tag() }}
                     <div class="mb-2">
                         {{ lForm.username.label }}<br>
-                        {{ lForm.username(size=32) }}<br>
+                        {{ lForm.username(class_="col-md-8") }}<br>
                         {% for error in lForm.username.errors %}
                             <p class="validation-error">{{ error }}</p>
                         {% endfor %}
                     </div>
                     <div class="mb-2">
                         {{ lForm.password.label }}<br>
-                        {{ lForm.password(size=32) }}<br>
+                        {{ lForm.password(class_="col-md-8") }}<br>
                         {% for error in lForm.password.errors %}
                             <p class="validation-error">{{ error }}</p>
                         {% endfor %}

@@ -39,8 +39,8 @@
               <ul class=" nav flex-column" id="navigationBar">
                 <!-- each element in nav_items is of the format: [label, icon, link] -->
                 {% with nav_items = [['Home','house','home'],['Login','door-open','login'],['Logout','door-closed','logout'],
-                ['Progress','check2-square','progress'],['App','window','application'],['Transport','truck','transport'],
-                ['Network','hdd-network','network'],['Link','link','link']] %}
+                ['Progress','check2-square','progress'],['Link','link','link'],['Network','hdd-network','network'],
+                ['Transport','truck','transport'],['Application','window','application']] %}
                   <!-- loop through nav_items and place them into the navigation bar -->
                   {% for nav_item in nav_items %}
                   <!-- skip login if user is already logged in, likewise, skip logout if user is not logged in -->

@@ -11,36 +11,36 @@
                     {{ rForm.hidden_tag() }}
                     <div class="mb-2">
                         {{ rForm.firstname.label }}<br>
-                        {{ rForm.firstname(size=32) }}
+                        {{ rForm.firstname(class_="col-md-8") }}
                     </div>
                     <div class="mb-2">
                         {{ rForm.lastname.label }}<br>
-                        {{ rForm.lastname(size=32) }}
+                        {{ rForm.lastname(class_="col-md-8") }}
                     </div>
                     <div class="mb-2">
                         {{ rForm.username.label }}<br>
-                        {{ rForm.username(size=32) }}<br>
+                        {{ rForm.username(class_="col-md-8") }}<br>
                         {% for error in rForm.username.errors %}
                             <p class="validation-error">{{ error }}</p>
                         {% endfor %}
                     </div>
                     <div class="mb-2">
                         {{ rForm.email.label }}<br>
-                        {{ rForm.email(size=32) }}<br>
+                        {{ rForm.email(class_="col-md-8") }}<br>
                         {% for error in rForm.email.errors %}
                             <p class="validation-error">{{ error }}</p>
                         {% endfor %}
                     </div>
                     <div class="mb-2">
                         {{ rForm.password.label }}<br>
-                        {{ rForm.password(size=32) }}<br>
+                        {{ rForm.password(class_="col-md-8") }}<br>
                         {% for error in rForm.password.errors %}
                             <p class="validation-error">{{ error }}</p>
                         {% endfor %}
                     </div>
                     <div class="mb-2">
                         {{ rForm.confirmpassword.label }}<br>
-                        {{ rForm.confirmpassword(size=32) }}<br>
+                        {{ rForm.confirmpassword(class_="col-md-8") }}<br>
                         {% for error in rForm.confirmpassword.errors %}
                             <p class="validation-error">{{ error }}</p>
                         {% endfor %}

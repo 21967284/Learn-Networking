@@ -84,13 +84,13 @@ def application():
 @app.route('/transport')
 @login_required
 def transport():
-    return
+    return render_template('transport.html', title="Transport Layer")
 
 
 @app.route('/network')
 @login_required
 def network():
-    return
+    return render_template('network.html', title="Network Layer")
 
 
 @app.route('/link')

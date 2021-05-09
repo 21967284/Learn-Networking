@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="{{ url_for('static', filename='javascript/content.js') }}"></script>
+
+
+<div class="mx-5">
+    <!-- Explanation/text portion -->
+    <div class="green-glass-card p-3" id="explanation-card">
+        <h4 class="white-text">Explanation</h4>
+
+        <div class="card p-4">
+            <p>
+                The Transport Layer belongs to the Transmission Control Protocol (TCP) suite. It is responsible for 
+                ensuring a reliable connection is made between applications on communicating hosts. It also handles flow control and 
+                multiplexing!
+            </p>
+            <p>
+                So far, we know how data packets can travel from one host to another across networks, but most of the time, this data
+                is needed by an application running on the host machine. So the question becomes: how do we know which of the 
+                hundreds of applications on the host needs the packet they've just received?
+            </p>
+            <p>
+                In this layer, we'll explore exactly how this is handled!
+            </p>
+
+
+            <!-- Accordion -->
+            <div class="mt-2">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                Ports and I don't mean the wine... though I don't mind a small glass on a sunday afternoon, maybe with a 
+                                little bit of Brie and some crackers... what was I talking about again?
+                            </button>
+                        </h2>
+
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <p>
+                                    Sorry about that, it's been a long week... Anyway, we need a solution to the issue of application 
+                                    addressing. To solve the issue, some smart person came up with the idea of using Port numbers to 
+                                    identify the 'software end-point' to receive a payload (meaning data). This port number is a 16-bit 
+                                    positive integer that can be used to uniquely identify which application needs which message.
+                                </p>
+                                <p>
+                                    A connection between applications is established over a port and then communication can begin! The 
+                                    two applications will send messages to one another, first embedding their port number into a special 
+                                    header - called the TCP header. There are a few other elements to this header which I'll touch on later.
+                                </p>
+                                <p>
+                                    So once an application decides it wants to send some data, it sends it off to the Network Layer along with 
+                                    its TCP header, which will then chop the data into packets and wrap each packet in the TCP header, followed by 
+                                    its own IP header. In case you haven't noticed yet, there are lot of headers involved in network transmission... 
+                                    These silly computers need their hands held <span style="font-style: italic">every step of the way!</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                So how does it make the connection reliable?
+                            </button>
+                        </h2>
+
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <p>
+                                    It's true, connections over the internet rarely are reliable. Packets will often get
+                                    lost or take too long to be received. In these situations, the Transport Layer has to think on its
+                                    feet! The first obstacle is to figure out when a packet has been lost in the first place.
+                                </p>
+                                <p>
+                                    The solution to this problem is three-fold: use sequence numbers, acknowledgement, and figure out
+                                    the round-trip time (RTT).
+                                </p>
+                                <p>
+                                    Sequence numbers tell the receiver of ordered packets which packet to expect next. If they receive a 
+                                    packet with a sequence number of 2, they know that the next one they should receive is a 3. If they
+                                    don't receive a 3 (say, they instead get a 4), there are a few ways to handle it. 
+                                </p>
+                                <p>
+                                    Acknowledgement serves to let the sender of a packet know that their message was received and in good 
+                                    condition! If a sender doesn't receive an acknowledgement after a considerable time, they know that the
+                                    receiver probably didn't get the message and they will resend it. Combining sequence numbers and acknowledgements
+                                    gives us a system that can handle lots of connectivity issues!
+                                </p>
+                                <p>
+                                    Finally, we have the round trip time. This helps the sender know how long it should wait before deciding that a message
+                                    was not received. Unfortunately, we can't just <span style="font-style: italic">know</span> how long the RTT is
+                                    for any given connection, since it has to hop around between potentially hundreds of networks before 
+                                    reaching the other end. Luckily, we have <strong>the power of maths</strong> to help us! By getting the average time 
+                                    it takes for an acknowledgement to be received by the sender of a message, we can find a pretty good estimate of the 
+                                    actual RTT for a connection. 
+                                </p>
+                                <p>
+                                    So we know how to tell when a packet is lost and we know what to do in that case as well! Now the only issue left to
+                                    deal with is flow control.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Transport Layer: Waterbending edition (controlling flow)
+                            </button>
+                        </h2>
+
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <p>
+                                    If a host or network is struggling to keep up with the demands of its transmitting applications, 
+                                    it may sometimes need to implement some flow control to reduce the stress. One way to help limit
+                                    this issue is to delay sending on small messages.
+                                </p>
+                                <p>
+                                    Small messages are quite inefficient when sent over a network because eack packet's header(s) must be
+                                    read by the receiver! If I send 100 small packets which take up the same space as 1 large packet, then
+                                    the 100 packets will take about 100x as long to sort through and read. For this reason, senders will often
+                                    delay their sending if they have less then the 'maximum segment size' available to send. This means that 
+                                    all, or most, packets sent by an application will be as large as possible - giving us the most efficient
+                                    system possible!
+                                </p>
+                                <p>
+                                    But even if the sender does this, they may still be sending too many packets for either the network or 
+                                    receiver to handle! For this reason, both hosts in a connection will note down two values: the 
+                                    <span style="font-style: italic">congestion control</span> and 
+                                    <span style="font-style: italic">flow control</span> windows. These windows represent the maximum number
+                                    of packets that the network and receiver can handle, respectively. Any time a host needs to send a packet,
+                                    they make sure the number of packets 'currently in flight' is within both windows before sending.
+                                    This means that at any point in time, as long as these windows are correct, there is hopefully never too many
+                                    packets in flight for the connection to handle.
+                                </p>
+                                <p>
+                                    The flow control window is easy to know - the receiver host can just tell the sender how many packets it can
+                                    handle at once! Unfortunately, the congestion control window is not as simple...
+                                </p>
+                                <p>
+                                    So how do we figure out the size of the window? It's a bit of a trial and error system. If a packet is lost 
+                                    over a network connection, we can assume that was because of congestion issues on the network. Using this,
+                                    we can create a running estimate of the capabilities of a network connection! Any time a packet loss occurs,
+                                    the window size is reduced. On the other hand, if multiple packets have successfully sent in a row, the window
+                                    size creeps up a little until a loss occurs. This way, hopefully, the window can be as large as possible while
+                                    still protecting the network from congestion.
+                                </p>
+                                <p>
+                                    And that's how the Transport Layer works! The final piece of the puzzle is the Application Layer. 
+                                </p>
+                                <p>
+                                    When you're ready, feel free to click 'Go to quiz' where you can complete a little assessment on 
+                                    what you've just learned :) Good luck!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class=" d-flex justify-content-end mt-2">
+            <button type="button" class=" btn btn-purple btn-lg" onClick="quizMode()">
+                Go to quiz
+                <i class="bi bi-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Quiz portion -->
+    <div class="orange-glass-card p-3" id="quiz-card">
+        <h4 class="white-text">Quiz</h4>
+
+
+        <!--Form-->
+        <div class="card p-3">
+            <!--Qestions loading spinner-->
+            <div class="spinner-border" role="status" id="questions-spinner">
+                <span class="visually-hidden">Loading questions...</span>
+            </div>
+
+            <form id="questions-form"></form>
+            <div class=" d-flex justify-content-end mt-2">
+                <button type="button" class=" btn btn-green btn-lg" onClick="evaluateSubmission()">
+                    Submit
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Results portion -->
+    <div class="green-glass-card p-3" id="results-card">
+        <h4 class="white-text">Results</h4>
+
+        <div class="card">
+            <div class="card-body">
+                Results go heree
+            </div>
+        </div>
+
+        <div class=" d-flex justify-content-end mt-2">
+            <button type="button" class=" btn btn-purple btn-lg", onClick="location.href='{{ url_for('application') }}'">
+                To the Application Layer!
+                <i class="bi bi-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
