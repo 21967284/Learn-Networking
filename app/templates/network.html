@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="{{ url_for('static', filename='javascript/content.js') }}"></script>
+
+
+<div class="mx-5">
+    <!-- Explanation/text portion -->
+    <div class="green-glass-card p-3" id="explanation-card">
+        <h4 class="white-text">Explanation</h4>
+
+        <div class="card p-4">
+            <p>
+                The Network layer is responsible for making sure data gets from point A to point B. It doesn't care 
+                so much about silly things, like what it's actually sending or whether a broken up message will even
+                arrive in the right order!
+            </p>
+            <p>
+                Sometimes, an application wants to send lots of data all at once to a different network - to handle 
+                this, it is often necessary to section the message into smaller 'packets' and let the receiver figure
+                out what to do with all the randomly ordered data.
+            </p>
+            <p>
+                In this layer, we'll explore how exactly this layer can manage to consistently and quickly send lots of data
+                across the globe!
+            </p>
+
+
+            <!-- Accordion -->
+            <div class="mt-2">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                It all starts with packets
+                            </button>
+                        </h2>
+
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <p>
+                                    So in order for any data to travel from one place in the world to another, it has to 
+                                    hop through quite a few networks. Unfortunately, every network has certain limitations
+                                    - also called protocols. Quite often amoung this list of limitations is the maximum amount
+                                    of data they can receive and send at once. There is, of course, a very good reason for such 
+                                    a limitation! If someone sent an indescribably long message across a network then there is 
+                                    no telling how long it will take to send - leading to major unexpected congestion, like a 
+                                    major car crash on a very busy highway. So, we have to make sure that any data sent is within
+                                    the network's maximum message length.
+                                </p>
+                                <p>
+                                    If one network has a message to send that is larger than another's maximum length, 
+                                    they need to chopp it up into smaller pieces until each piece will fit without issue.
+                                    These pieces are called packets, and they play a pretty important role in my day-to-day
+                                    commute to work! Since the sending network has now separated the original message into
+                                    smaller packets, the eventual receiver will need some way to know how to put them back together
+                                    again. Intermediate networks - the ones that each packet 'hops' across to get to its destination
+                                    - also need to know where the packet is going so they can make sure it's being sent in the
+                                    right direction.
+                                </p>
+                                <p>
+                                    To solve this, clever networking scientists designed a special compartment in each
+                                    packet called the packet header. The packet header has a number specially positioned
+                                    bits to indicate important details about the packet, such as where it came from, where
+                                    it is going, how long it is, what order the completed message should be read in, etc.
+                                    To help demonstrate what I mean, I've drawn a quick sketch of what packet header looks
+                                    like for the IPv4 network protocol (don't worry, I'll talk about that later!):
+                                </p>
+                                <img src="{{ url_for('static', filename='images/nw_layer_packet.png') }}"> 
+                                I know, I'm a <strong>very</strong> precise sketcher!
+                                <p>
+                                    So now, any intermediate network note can just look at the 'Destination' part of 
+                                    the header and figure out where to send it to next. Also handy: the destination
+                                    node themselves are able to look at the 'Frgment offset' part and know what
+                                    part of the message they have just received!
+                                </p>
+                                <p>
+                                    Sometimes, a packet will have to be broken in to a few even smaller packets! If the next
+                                    network can't handle the initial packet, the same process is repeated until each mini-packet
+                                    can be sent individually. The offset in the header is changed to let the destination know
+                                    where each of the smaller packets fit in.
+                                </p>
+                                <p>
+                                    Once a packet has been segmented (that's what we call the process of breaking a message into
+                                    smaller packets), it isn't reassembled until it reaches the destination, so intermediate nodes
+                                    don't care about the offset in the header whatsoever!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                How do nodes even know where to send the data though?
+                            </button>
+                        </h2>
+
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <p>
+                                    So once we've determined <strong>how</strong> to send the data, and <strong>where</strong>,
+                                    all we need to know is the <strong>best</strong> path for it to take through the networks.
+                                    We do this through a process called Routing. The goal of routing is to find the most 
+                                    optimal path for a packet to take so that it will reach the destination as soon as possible.
+                                    This can often involve avoiding congestion on a particularly busy network, and ensuring the
+                                    next network will lead to the shortest path to the destination.
+                                </p>
+                                <p>
+                                    There are quite a few algorithms that we use to find the best path for routing packets. To be
+                                    honest, a lot of that maths-y stuff goes right over my head (I am an artist byte, as evident  by
+                                    my impeccable sketching form), so I'll skip that stuff and pretend it isn't important :)
+                                </p>
+                                <p>
+                                    The long-and-short of it is that each link between two network nodes is associated with a cost.
+                                    This cost will correlate to the time it takes to be received and read by that node, and calculating
+                                    it can be quite complicated! Each router makes a little list (well, actually the list is usually 
+                                    quite massive) which holds the distance to each other router that can be reached across the network.
+                                    They can then tell all their neighbouring routers about their fancy routing table, who then go through
+                                    the whole thing, meticulously noting down any differences between theirs. If a node finds that their 
+                                    neighbour's routing table has a shorter path to a particular far-away node, they will node that down
+                                    in their own routing table. In future, if that node needs to send a message to the afforementioned far-away
+                                    node, they will refer to their routing table and know to send it through the neighbour!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                But there's like a bajillion devices in the world! How does every node know how to get to every other node?
+                            </button>
+                        </h2>
+
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <!-- this page requires login to view, so the current_user will always be authenticated but just in case, we check -->
+                                <p>
+                                    That is a very good question, {% if current_user.is_authenticated %} {{ current_user.first_name }}! {% endif %} Actually, 
+                                    network nodes only know how to get to other <strong>networks</strong>, they don't actually have any idea where the 
+                                    individual device (called a host) is within the network. The address of a host is actually contained in two parts:
+                                    first, there is the network IP, and directly after that is the host address within that network. Depending on the
+                                    protocol (i.e. IPv4 or IPv6), the length of the address will be different, but the general idea is the same.
+                                </p>
+                                <p>
+                                    So knowing that an IP address is made up of two parts, the next challenge for someone reading this address is knowing 
+                                    which part of the 32-bit or 128-bit refers to the network address and which refers to the host address.
+                                </p>
+                                <p>
+                                    When dealing with IPv4, the solution is to use a process called 'subnet masking', in which each router notes in
+                                    their routing table each network addresses subnet mask. A subnet mask is a 32-bit string consisting of n
+                                    1s, followed by 32-n 0s. The number of 1s in the subnet mask indicates how many bits of the network's ip address
+                                    is allocated to the network address. This means that network with very few hosts (for example your home network) can 
+                                    use more of that sweet IP address real-estate to identify its network address, leaving the shorter addresses for those 
+                                    who have far more hosts connected.
+                                </p>
+                                <p>
+                                    IPv6 handles this issue in a similar way. However, since the IPv6 header is a lot larger than the IPv4 header, we can actually
+                                    fit this information into the header itself. A few bits of the header are allocated to identifying how many bits in the 
+                                    IP address refer to the network address. 
+                                </p>
+                                <p>
+                                    And that pretty much does it for the Network layer! When you're ready, feel free to click 'Go to quiz' where 
+                                    you can complete a little assessment on what you've just learned :) Good luck!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class=" d-flex justify-content-end mt-2">
+            <button type="button" class=" btn btn-purple btn-lg" onClick="quizMode()">
+                Go to quiz
+                <i class="bi bi-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Quiz portion -->
+    <div class="orange-glass-card p-3" id="quiz-card">
+        <h4 class="white-text">Quiz</h4>
+
+
+        <!--Form-->
+        <div class="card p-3">
+            <!--Qestions loading spinner-->
+            <div class="spinner-border" role="status" id="questions-spinner">
+                <span class="visually-hidden">Loading questions...</span>
+            </div>
+
+            <form id="questions-form"></form>
+            <div class=" d-flex justify-content-end mt-2">
+                <button type="button" class=" btn btn-green btn-lg" onClick="evaluateSubmission()">
+                    Submit
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Results portion -->
+    <div class="green-glass-card p-3" id="results-card">
+        <h4 class="white-text">Results</h4>
+
+        <div class="card">
+            <div class="card-body">
+                Results go heree
+            </div>
+        </div>
+
+        <div class=" d-flex justify-content-end mt-2">
+            <button type="button" class=" btn btn-purple btn-lg", onClick="location.href='{{ url_for('transport') }}'">
+                To the Transport Layer!
+                <i class="bi bi-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

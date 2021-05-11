@@ -40,10 +40,14 @@ class User(UserMixin, db.Model):
 class Question(db.Model):
     __tablename__ = 'question'
     question_id = db.Column(db.Integer, primary_key=True)
+    # refers to the content section the question appears in
+    section = db.Column(db.String(128))
+    # holds the question's text - what the user sees
     question = db.Column(db.String(128), unique=True)
-    # which answer is correct - datatype may be changed to string to allow non-MCQs
-    correct = db.Column(db.Integer)
-    answers = db.relationship('Answer', backref='question', lazy='dynamic')
+    # which answer is correct
+    correct_answer = db.Column(db.Integer)
+    # provides a list of answer options to be presented to the user
+    answer_options = db.relationship('Answer', backref='question', lazy='dynamic')
     users = db.relationship('User', secondary='mark')
 
     def __repr__(self):

@@ -24,11 +24,21 @@
                 - I'm <code>[byte name]</code> and I would like to give you a tour of my world! We will uncover together all the key features of
                 the network and hopefully have a good time along the way :)
                 <br>
-                <span style="margin-left:20px">If you would like to save your progress or see how you've been going in my (FUN!) quizzes, make sure you log in!</span>
-                <br>
-                <button type="button" class=" btn btn-purple btn-md" onClick="location.href='{{ url_for('login')}}'">
-                  Login
-                  <i class="bi bi-door-open"></i>
+                {% if current_user.is_anonymous %}
+                  <span style="margin-left:20px">If you would like to save your progress or see how you've been going in my (FUN!) quizzes, make sure you log in!</span>
+                  <br>
+                  <button type="button" class=" btn btn-purple btn-md" onClick="location.href='{{ url_for('login') }}'">
+                    Login
+                    <i class="bi bi-door-open"></i>
+                {% else %}
+                  <span style="margin-left:20px">Hey, wait... I recognise you! How are you doing, {{ current_user.first_name }}? If you'd like to see how 
+                    you've been doing in the course, just click the button below.</span>
+                  <br>
+                  <!-- This button needs to be replaced with the player's current progress -->
+                  <button type="button" class=" btn btn-purple btn-md" onClick="location.href='{{ url_for('progress') }}'">
+                    Progress
+                    <i class="bi bi-check2-square"></i>
+                {% endif %}
               </div>
             </div>
           </div>

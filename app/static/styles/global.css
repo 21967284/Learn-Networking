@@ -13,7 +13,7 @@
 
 /*Element styling*/
 body {
-    background-color: var(--purple);
+    background-color: black;/*var(--purple);*/
     color: black;
     font-family: 'JetBrains Mono', monospace;
 }
@@ -76,13 +76,13 @@ form > input {
 .btn-purple {
     color: var(--purple);
     background-color: white;
-    border-color: var(--purple);
+    border-color: black;/*var(--purple);*/
     border-radius: 0.5em;
     border-width: medium;
 }
 .btn-purple:hover {
     color: white;
-    background-color: var(--purple);
+    background-color: black;/*var(--purple);*/
     border-color: white;
 }
 
@@ -107,4 +107,8 @@ form > input {
 
 .bi-star-fill {
     color: var(--yellow);
+}
+
+div img {
+    width: 50%;
 }

@@ -1,19 +1,21 @@
 const STARS_TEMPLATE = '<i class="bi bi-star-fill"></i>'
 
-const LIGHT_RED = 'rgba(255, 99, 132, 0.2)';
+//const LIGHT_RED = 'rgba(255, 99, 132, 0.2)';
+const LIGHT_ORANGE = 'rgba(255, 131, 0, 0.2)';
 const LIGHT_BLUE = 'rgba(54, 162, 235, 0.2)';
 const LIGHT_YELLOW = ' rgba(255, 206, 86, 0.2)';
 const LIGHT_GREEN = 'rgba(75, 192, 192, 0.2)';
 const LIGHT_GREY = 'rgba(46, 49, 49, 0.2)';
 
-const DARK_RED = 'rgba(255, 99, 132, 1)';
+//const DARK_RED = 'rgba(255, 99, 132, 1)';
+const DARK_ORANGE = 'rgba(255, 131, 0, 1)';
 const DARK_BLUE = 'rgba(54, 162, 235, 1)';
 const DARK_YELLOW = 'rgba(255, 206, 86, 1)';
 const DARK_GREEN = 'rgba(75, 192, 192, 1)';
 const DARK_GREY = 'rgba(46, 49, 49, 1)';
 
-const chartBackgroundColours = [LIGHT_RED, LIGHT_BLUE, LIGHT_GREEN, LIGHT_YELLOW];
-const chartBorderColours = [DARK_RED, DARK_BLUE, DARK_GREEN, DARK_YELLOW];
+const chartBackgroundColours = [LIGHT_ORANGE, LIGHT_BLUE, LIGHT_GREEN, LIGHT_YELLOW];
+const chartBorderColours = [DARK_ORANGE, DARK_BLUE, DARK_GREEN, DARK_YELLOW];
 
 window.onload = onInit;
 
