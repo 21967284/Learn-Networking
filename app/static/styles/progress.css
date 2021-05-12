@@ -10,5 +10,4 @@ Custom css class so that we can have custom width for medium sized devices (>768
     .w-md-50 {
         width: 50% !important;
     }
-
 }

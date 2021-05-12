@@ -1,5 +1,6 @@
+from app.models import User
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, FieldList, SelectField, FormField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
 from app.models import User
 
@@ -10,6 +11,7 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember Me')
     submit = SubmitField("Sign In")
 
+
 # handles fields of the register form
 class RegisterForm(FlaskForm):
     firstname = StringField('First Name', validators=[DataRequired("Enter your first name")])
@@ -19,7 +21,8 @@ class RegisterForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired("Enter your email"), Email("Enter a valid email address")])
     password = PasswordField('Password', validators=[DataRequired("Enter a password")])
     # make sure the password and confirmpassword fields are equal
-    confirmpassword = PasswordField('Confirm Password', validators=[DataRequired("Enter a password"), EqualTo('password', "Passwords must match")])
+    confirmpassword = PasswordField('Confirm Password', validators=[DataRequired("Enter a password"),
+                                                                    EqualTo('password', "Passwords must match")])
     submit = SubmitField("Register Account")
 
     # confirm that the username is unique in the database
@@ -34,3 +37,14 @@ class RegisterForm(FlaskForm):
         if user is not None:
             # could possible add a 'reset password' functionality to help in this case
             raise ValidationError('There is already an account associated with that email.')
+
+
+class ManageQuestionsForm(FlaskForm):
+    section_choice = ['Link', 'Network', 'Transport', 'Application']
+    section = SelectField('Topic of question', choices=section_choice,
+                          validators=[DataRequired("Enter a corresponding topic for the question")])
+    question = StringField('Question body text', validators=[DataRequired("Enter a question")])
+    # answer_options = FieldList(FormField(ManageAnswersForm), min_entries=3, max_)
+    answer_options = FieldList(StringField('Incorrect answer options', validators=[DataRequired("Enter an answer option")]), min_entries=3)
+    correct_answer = StringField('Correct answer', validators=[DataRequired("A correct answer is required")])
+    submit = SubmitField("Save Question")

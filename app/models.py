@@ -17,7 +17,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(128), index=True, unique=True)
     first_name = db.Column(db.String(64))
     last_name = db.Column(db.String(64))
-    admin = db.Column(db.Integer, index=True)
+    admin = db.Column(db.Boolean, index=True)
     # password stored as a hash for security
     password_hash = db.Column(db.String(128))
     # there is a M:M relationship between User and Question - I do believe there is another way to do this
@@ -35,6 +35,9 @@ class User(UserMixin, db.Model):
     # compare the entered password hash to the one stored on the database
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def is_admin(self):
+        return self.admin
 
 # store questions in a table
 class Question(db.Model):

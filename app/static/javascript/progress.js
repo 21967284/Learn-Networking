@@ -1,21 +1,24 @@
 const STARS_TEMPLATE = '<i class="bi bi-star-fill"></i>'
 
-//const LIGHT_RED = 'rgba(255, 99, 132, 0.2)';
 const LIGHT_ORANGE = 'rgba(255, 131, 0, 0.2)';
 const LIGHT_BLUE = 'rgba(54, 162, 235, 0.2)';
 const LIGHT_YELLOW = ' rgba(255, 206, 86, 0.2)';
 const LIGHT_GREEN = 'rgba(75, 192, 192, 0.2)';
 const LIGHT_GREY = 'rgba(46, 49, 49, 0.2)';
 
-//const DARK_RED = 'rgba(255, 99, 132, 1)';
 const DARK_ORANGE = 'rgba(255, 131, 0, 1)';
 const DARK_BLUE = 'rgba(54, 162, 235, 1)';
 const DARK_YELLOW = 'rgba(255, 206, 86, 1)';
 const DARK_GREEN = 'rgba(75, 192, 192, 1)';
 const DARK_GREY = 'rgba(46, 49, 49, 1)';
 
-const chartBackgroundColours = [LIGHT_ORANGE, LIGHT_BLUE, LIGHT_GREEN, LIGHT_YELLOW];
-const chartBorderColours = [DARK_ORANGE, DARK_BLUE, DARK_GREEN, DARK_YELLOW];
+const CHART_BACKGROUND_COLOURS = [LIGHT_ORANGE, LIGHT_BLUE, LIGHT_GREEN, LIGHT_YELLOW];
+const CHART_BORDER_COLOURS = [DARK_ORANGE, DARK_BLUE, DARK_GREEN, DARK_YELLOW];
+
+const CHART_OPTIONS = {
+            responsive: true,
+            aspectRatio: 1,
+        }
 
 window.onload = onInit;
 
@@ -161,15 +164,12 @@ function buildAccuracyChart(accuracyData) {
             datasets: [{
                 label: 'Percentage completion by topic',
                 data: accuracyData,
-                backgroundColor: chartBackgroundColours,
-                borderColor: chartBorderColours,
+                backgroundColor: CHART_BACKGROUND_COLOURS,
+                borderColor: CHART_BORDER_COLOURS,
                 borderWidth: 2
             }]
         },
-        options: {
-            responsive: true,
-            aspectRatio: 1,
-        }
+        options: CHART_OPTIONS
     });
 }
 
@@ -180,13 +180,13 @@ function buildAccuracyChart(accuracyData) {
 function buildProgressChart(progressData) {
     //uses progressData array to determine which colour to shade in the doughnut chart
     //if the user has completed the topic (ie progressData[topicNo] == true), the chart section will display in colour, else it will be in grey
-    const backgroundColours = chartBackgroundColours.map((colour, index) => {
+    const backgroundColours = CHART_BACKGROUND_COLOURS.map((colour, index) => {
         if (progressData[index] == false) {
             return LIGHT_GREY
         } else return colour;
     });
 
-    const backgroundBorderColours = chartBorderColours.map((colour, index) => {
+    const backgroundBorderColours = CHART_BORDER_COLOURS.map((colour, index) => {
         if (progressData[index] == false) {
             return DARK_GREY
         } else return colour;
@@ -205,9 +205,6 @@ function buildProgressChart(progressData) {
                 borderWidth: 2
             }]
         },
-        options: {
-            responsive: true,
-            aspectRatio: 1,
-        }
+        options: CHART_OPTIONS
     });
 }
