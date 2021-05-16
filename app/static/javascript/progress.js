@@ -2,7 +2,7 @@ const STARS_TEMPLATE = '<i class="bi bi-star-fill"></i>'
 
 const LIGHT_ORANGE = 'rgba(255, 131, 0, 0.2)';
 const LIGHT_BLUE = 'rgba(54, 162, 235, 0.2)';
-const LIGHT_YELLOW = ' rgba(255, 206, 86, 0.2)';
+const LIGHT_YELLOW = 'rgba(255, 206, 86, 0.2)';
 const LIGHT_GREEN = 'rgba(75, 192, 192, 0.2)';
 const LIGHT_GREY = 'rgba(46, 49, 49, 0.2)';
 
@@ -16,15 +16,14 @@ const CHART_BACKGROUND_COLOURS = [LIGHT_ORANGE, LIGHT_BLUE, LIGHT_GREEN, LIGHT_Y
 const CHART_BORDER_COLOURS = [DARK_ORANGE, DARK_BLUE, DARK_GREEN, DARK_YELLOW];
 
 const CHART_OPTIONS = {
-            responsive: true,
-            aspectRatio: 1,
-        }
+    responsive: true,
+    aspectRatio: 1,
+}
 
 window.onload = onInit;
 
 /**
  * Triggered once the window has finished loading/rendering
- * Calls functions that requires the html template to finish loading first
  */
 function onInit() {
     loadAndProcessAccuracyData();
@@ -38,10 +37,7 @@ function onInit() {
 function loadAndProcessAccuracyData() {
     $.ajax({
         url: '/retrieve-accuracy-data',
-        method: "POST",
-        data: {
-            topics: 'All'
-        }
+        type: "GET",
     }).done(result => {
         processAccuracyData(result);
     });
@@ -53,9 +49,9 @@ function loadAndProcessAccuracyData() {
  */
 function loadAndProcessProgressData() {
     $.ajax({
-        url: '/retrieve-progress-data', success: result => {
-            processProgressData(result);
-        }
+        url: '/retrieve-progress-data'
+    }).done(result => {
+        processProgressData(result);
     })
 }
 
@@ -142,20 +138,6 @@ function calculateAndSetOverallProgress(progressResults) {
 }
 
 /**
- * Function to alter the number of stars shown on screen for progress and accuracy tiles
- * @param noOfStars - how many stars it should show
- * @param tile - which tile (accuracy or progress) it is for
- */
-function setStars(noOfStars, tile) {
-    for (i = 0; i < noOfStars; i++) {
-        $(`#${tile}-star-container`).append(STARS_TEMPLATE);
-    }
-
-    $(`#${tile}-star-spinner`).hide();
-    $(`#${tile}-star-container`).show();
-}
-
-/**
  * Builds accuracy chart using chart.js library
  * @param accuracyData - array of accuracy results by topic
  */
@@ -175,6 +157,8 @@ function buildAccuracyChart(accuracyData) {
         },
         options: CHART_OPTIONS
     });
+
+    $("#overall-accuracy-chart-spinner").hide();
 }
 
 /**
@@ -211,4 +195,22 @@ function buildProgressChart(progressData) {
         },
         options: CHART_OPTIONS
     });
+
+    $("#overall-progress-chart-spinner").hide();
+
+}
+
+
+/**
+ * Function to alter the number of stars shown on screen for progress and accuracy tiles
+ * @param noOfStars - how many stars it should show
+ * @param tile - which tile (accuracy or progress) it is for
+ */
+function setStars(noOfStars, tile) {
+    for (i = 0; i < noOfStars; i++) {
+        $(`#${tile}-star-container`).append(STARS_TEMPLATE);
+    }
+
+    $(`#${tile}-star-spinner`).hide();
+    $(`#${tile}-star-container`).show();
 }

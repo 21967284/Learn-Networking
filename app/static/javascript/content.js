@@ -1,5 +1,5 @@
 /**
- * Turns page into 'quiz mode' by showing only the quiz card and hiding the explanation and results card
+ * Redirects user to quiz section of correct topic/layer
  */
 function goToQuiz() {
     const layer = document.title.replace(' Layer', '').toLowerCase();

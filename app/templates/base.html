@@ -27,9 +27,9 @@
 
     <!-- Title (and default value) -->
     {% if title %}
-    <title>{{ title }}</title>
+        <title>{{ title }}</title>
     {% else %}
-    <title>TCP Model Walkthrough</title>
+        <title>TCP Model Walkthrough</title>
     {% endif %}
 </head>
 <body>
@@ -37,37 +37,24 @@
     <!--  Navigation section-->
     <div class="col-1 col-sm-2">
         <ul class=" nav flex-column" id="navigationBar">
-            <!-- each element in nav_items is of the format: [label, icon, link] -->
-            {% with nav_items =
-            [['Home','house','home'],['Login','door-open','login'],['Logout','door-closed','logout'],
-            ['Progress','check2-square','progress'],['Link','link','link'],['Network','hdd-network','network'],
-            ['Transport','truck','transport'],['Application','window','application']] %}
+
             <!-- loop through nav_items and place them into the navigation bar -->
             {% for nav_item in nav_items %}
-            <!-- skip login if user is already logged in, likewise, skip logout if user is not logged in -->
+                <!-- skip login if user is already logged in, likewise, skip logout if user is not logged in -->
                 {% if nav_item[0] == 'Login' and current_user.is_authenticated or nav_item[0] == 'Logout' and
                 current_user.is_anonymous %}
                 {% else %}
-                <li class="nav-item ">
-                    <a class="nav-link active jetbrains-mono-font d-flex" href="{{ url_for(nav_item[2]) }}">
-                        <i class="bi bi-{{ nav_item[1] }} mb-5 mb-sm-0"></i>
-                        <p class="offset-sm-1 d-none d-sm-block">
-                            {{ nav_item[0] }}
+                    <li class="nav-item">
+                        <a class="nav-link active jetbrains-mono-font d-flex" href="{{ url_for(nav_item[2]) }}">
+                            <i class="bi bi-{{ nav_item[1] }} mb-5 mb-sm-0"></i>
+                            <p class="offset-sm-1 d-none d-sm-block">
+                                {{ nav_item[0] }}
 
-                        </p>
-                    </a>
-                </li>
+                            </p>
+                        </a>
+                    </li>
                 {% endif %}
             {% endfor %}
-            {% if current_user.admin %}
-                <li class="nav-item mb-2">
-                    <a class="nav-link active jetbrains-mono-font d-flex" href=" {{ url_for('manage_questions') }}">
-                        <i class="bi bi-question-square-fill m mb-5 mb-sm-0"></i>
-                        <p class="offset-sm-1 d-none d-sm-block">Manage Questions</p>
-                    </a>
-                </li>
-            {% endif %}
-            {% endwith %}
         </ul>
     </div>
 
@@ -83,14 +70,14 @@
         </div>
 
         {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        {% for message in messages %}
-        <div class="alert alert-primary p-3 m-3" role="alert">
-            <i class="bi bi-exclamation-circle"></i>
-            {{ message }}
-        </div>
-        {% endfor %}
-        {% endif %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-primary p-3 m-3" role="alert" id="flash-alert">
+                        <i class="bi bi-exclamation-circle"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
         {% endwith %}
 
         <!-- this block holds the individual page content -->

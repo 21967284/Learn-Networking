@@ -1,8 +1,8 @@
 /*Consistent Colours*/
 :root{
     --purple: #300a24;
-    --green-text: #4e9c00;
-    --green: #70E000;
+    --dark-green: #4e9c00;
+    --light-green: #70E000;
     --orange: #FAA613;
     --shadow: #11030D;
 }
@@ -18,7 +18,7 @@ a {
     color: white;
 }
 a:hover {
-    color: var(--green-text);
+    color: var(--dark-green);
 }
 
 /*Font classes*/
@@ -38,7 +38,7 @@ a:hover {
 /*cards*/
 /*Obtained from https://glassmorphism.com/*/
 .green-glass-card {
-    background:var(--green);
+    background:var(--light-green);
     box-shadow: 0 8px 32px 0 var(--shadow);
     backdrop-filter: blur(3.0px);
     -webkit-backdrop-filter: blur(3.0px);
