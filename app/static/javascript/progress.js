@@ -37,7 +37,11 @@ function onInit() {
  */
 function loadAndProcessAccuracyData() {
     $.ajax({
-        url: '/accuracy-data'
+        url: '/retrieve-accuracy-data',
+        method: "POST",
+        data: {
+            topics: 'All'
+        }
     }).done(result => {
         processAccuracyData(result);
     });
@@ -49,7 +53,7 @@ function loadAndProcessAccuracyData() {
  */
 function loadAndProcessProgressData() {
     $.ajax({
-        url: '/progress-data', success: result => {
+        url: '/retrieve-progress-data', success: result => {
             processProgressData(result);
         }
     })

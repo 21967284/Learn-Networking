@@ -23,6 +23,7 @@ class User(UserMixin, db.Model):
     # there is a M:M relationship between User and Question - I do believe there is another way to do this
     # so this may be prone to change later
     questions = db.relationship('Question', secondary='mark')
+    progress = db.Column(db.Integer)
 
     # define how entries into this table are represented
     def __repr__(self):

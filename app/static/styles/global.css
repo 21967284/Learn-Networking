@@ -18,6 +18,8 @@ body {
     font-family: 'JetBrains Mono', monospace;
 }
 
+.card a { color: var(--purple)}
+
 a {
     color: white;
 }

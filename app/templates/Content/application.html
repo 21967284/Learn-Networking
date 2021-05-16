@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <script src="{{ url_for('static', filename='javascript/content.js') }}"></script>
+
+
+    <div class="mx-5">
+        <!-- Explanation/text portion -->
+        <div class="green-glass-card p-3" id="explanation-card">
+            <h4 class="white-text">Explanation</h4>
+
+            <div class="card p-4">
+                <p>
+                    The application layer is the top-most layer in the TCP/IP Model. This is the layer that is
+                    responsible for communication between different computers (sometimes known as client and server).
+                </p>
+                <p>
+                    The application layer uses several protocols (ways of communicating) to ensure that we can
+                    communicate using a variety of mediums (e.g. text, files, etc.) with each other.
+                </p>
+                <p>
+                    In this layer, we'll explore what some of those protocols are
+                </p>
+
+
+                <!-- Accordion -->
+                <div class="mt-2">
+                    <div class="accordion" id="application-layer-accordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="link-layer-accordion-heading-one">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    HyperText Transfer Protocol (HTTP)
+                                </button>
+                            </h2>
+
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>
+                                        HyperText Transfer Protocol? Sounds like an intergalactic battleship
+                                        communication protocol!
+                                    </p>
+                                    <p>
+                                        Unfortunately this HTTP protocol is not quiet as exciting as that.
+                                    </p>
+                                    <p>
+                                        But the HTTP protocol also has its own brilliance. It is very widely used in the
+                                        internet, because it is a great way to communicate data in the world wide web.
+                                    </p>
+                                    <p>
+                                        HTTP is known as a request-response protocol. It functions just as the name
+                                        suggests, a client computer can request information using HTTP and the server
+                                        computer can respond to this HTTP request.
+                                    </p>
+                                    <p>
+                                        HTTP is made up of a header and a body. The client computer can put information
+                                        in either the header or the body to request different kinds of data from the
+                                        server.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    File Transfer Protocol (FTP)
+                                </button>
+                            </h2>
+
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>
+                                        FTP is similar to HTTP in that it is allows client computers and server
+                                        computers to communicate with each other.
+                                    </p>
+                                    <p>
+                                        The only difference is the type of information they communicate with each other.
+                                        As the name suggests, HTTP communicate text-like information and FTP
+                                        communicates in files! FTP's speciality is transfering larger files.
+                                    </p>
+                                    <p>
+                                        FTP protocol allows files to be copied and distributed form one computer to
+                                        another by establishing two connections. One of these connections is required
+                                        for data transfer and the other one is required for control information.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                    SSH!
+                                </button>
+                            </h2>
+
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>
+                                        What, {% if current_user.is_authenticated %} {{ current_user.first_name }}
+                                        {% endif %}!? I'm not even being loud!
+                                    </p>
+                                    <p>
+                                        Oh wait, you meant the Secure Shell Protocol (SSH), didn't you? Well why didn't you tell me
+                                        earlier?!
+                                    </p>
+                                    <p>
+                                        The secure shell protocol is also a protocol to communicate between client and
+                                        server. However, a key difference between this protocol and the other ones is
+                                        that SSH provides a <b> secure channel of communication.</b>
+                                    </p>
+                                    <p>
+                                        In the SSH protocol, before computers can communicate with each other, the
+                                        computers must authenticate themselves first. That is, they must prove they are
+                                        who they say they are. Once they've done this, then they can communicate with
+                                        other computers.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                    And more!
+                                </button>
+                            </h2>
+
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>
+                                        There are a lot more protocols that is being used in the application layer. We
+                                        won't cover them all in this tutorial, but you can learn more about them <a
+                                            href="https://en.wikipedia.org/wiki/Category:Application_layer_protocols">
+                                        here</a>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <p class="mt-2">Think you've gotten the hang on it? Test yourself with the quiz!</p>
+            </div>
+
+
+            <div class=" d-flex justify-content-end mt-2">
+                <button type="button" class="btn btn-purple btn-lg" onClick="goToQuiz()">
+                    Go to quiz
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+{% endblock %}

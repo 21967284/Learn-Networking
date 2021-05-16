@@ -1,8 +1,8 @@
 ## define the urls of each webpage ##
 
 from app import app, db
-from app.forms import LoginForm, RegisterForm, ManageQuestionsForm, ManageAnswersForm
-from app.models import User, Answer, Question
+from app.forms import LoginForm, RegisterForm, ManageQuestionsForm
+from app.models import User, Answer, Question, Mark
 from flask import render_template, request, redirect, url_for, flash, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
@@ -107,7 +107,7 @@ def progress():
 @app.route('/application')
 @login_required
 def application():
-    return
+    return render_template('./Content/application.html', title="Application Layer")
 
 @app.route('/application-quiz')
 @login_required
@@ -151,27 +151,72 @@ def link_quiz():
 @app.route('/retrieve-progress-data')
 @login_required
 def progress_data():
-    # TODO - mock data - to be replaced
+    user_data = User.query.filter_by(id = current_user.id).first()
+    progress = user_data.progress
+
     progress_by_topic = {
-        'Application': True,
+        'Application': False,
         'Transport': False,
-        'Network': True,
+        'Network': False,
         'Link': False,
     }
+
+    if progress:
+        if progress >= 1:
+            progress_by_topic['Link'] = True
+        if progress >= 2:
+            progress_by_topic['Network'] = True
+        if progress >= 3:
+            progress_by_topic['Transport'] = True
+        if progress >= 4:
+            progress_by_topic['Application'] = True
+
     return progress_by_topic
 
-
-@app.route('/retrieve-accuracy-data')
+@app.route('/retrieve-accuracy-data', methods=["POST"])
 @login_required
 def accuracy_data():
-    # TODO - mock data - to be replaced
-    accuracy_by_topic = {
-        'Application': 100,
-        'Transport': 10,
-        'Network': 50,
-        'Link': 30,
+    print('accuracy data')
+
+    requested_topics = request.form['topics']
+
+    print('request topics', requested_topics)
+
+    topic_of_interest = []
+    accuracy_per_topic = {
+        'Application': 0,
+        'Transport': 0,
+        'Network': 0,
+        'Link': 0
     }
-    return accuracy_by_topic
+
+    if requested_topics == 'All':
+        topic_of_interest = ['Link', 'Network', 'Transport', 'Application']
+    else:
+        topic_of_interest.append(requested_topics)
+
+    print('topic of interest')
+
+    for topic in topic_of_interest:
+        print('topic', topic)
+        mark_per_question = []
+
+        questions_in_topic = Question.query.filter_by(section=topic).all()
+
+        for question in questions_in_topic:
+            print('question', question)
+            mark_for_question = Mark.query.filter_by(question_id_fk=question.question_id).first() if (Mark.query.filter_by(question_id_fk=question.question_id).first()) else 0
+            print('mark for question', mark_per_question)
+            mark_per_question.append(mark_for_question)
+
+        # If there is no marks in database, this means the user/student has not attempted this quiz, thus, returning 0
+        if len(mark_per_question) == 0:
+            accuracy_per_topic[topic] = 0
+        else:
+            mark_for_topic = sum(mark_per_question) / len(mark_per_question)
+            accuracy_per_topic[topic] = mark_for_topic
+
+    return accuracy_per_topic
 
 @app.route('/manage-questions',  methods=['GET', 'POST'])
 @login_required
@@ -181,7 +226,7 @@ def manage_questions():
     print(current_user.admin)
 
     if not current_user.admin:
-        flash('You need admin privileges to access this page!' +
+        flash('You need admin privileges to access this page! ' +
               'If you are an admin, please logout and login again using your admin account')
         return redirect(url_for('logout'))
 
@@ -214,7 +259,7 @@ def manage_questions():
 
         db.session.commit()
 
-        flash('Question successfully added! Re-submit the form to save another question')
+        flash('Question successfully added! To enter another question, enter the new question details and resubmit the form.')
         return (redirect(url_for('manage_questions')))
 
     return render_template('manage-questions.html', title="Manage Questions", questions_form= questions_form)
@@ -224,7 +269,6 @@ def manage_questions():
 @login_required
 def retrieve_questions():
     topic = str(request.args.get('topic'))
-    print('topic', topic)
 
     # Check if we need to implement auto shuffle questions
     questions_array = []
@@ -233,7 +277,7 @@ def retrieve_questions():
 
     for question in question_list:
         answer_options = []
-        answer_list = question.answer_options.all();
+        answer_list = question.answer_options.all()
 
         for answers in answer_list:
             answer_options.append(answers.answer)
@@ -251,6 +295,6 @@ def retrieve_questions():
 @login_required
 def check_answers():
 
-    return '50%'
+    return '50'
 
 

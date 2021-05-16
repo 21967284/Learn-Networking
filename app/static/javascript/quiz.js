@@ -14,10 +14,12 @@ const ANSWERS_OPTIONS_TEMPLATE = ({name, id, value, text}) => `
     </div>
 
 `
+const STARS_TEMPLATE = '<i class="bi bi-star-fill"></i>'
 
 window.onload = onInit;
 
 function onInit() {
+    $("#no-questions-alert").hide();
     quizMode();
     loadQuizQuestions();
 }
@@ -28,7 +30,6 @@ function onInit() {
 function quizMode() {
     $('#quiz-card').show();
     $('#results-card').hide();
-
 }
 
 /**
@@ -62,6 +63,7 @@ function loadQuizQuestions() {
             topic: topic
         },
     }).done(result => {
+        SetAlertAndDisableButtonIfNoQuestions(result.data);
 
         result.data.forEach(questionSet => {
             const questionConfig = [{
@@ -87,9 +89,54 @@ function loadQuizQuestions() {
     });
 }
 
+function SetAlertAndDisableButtonIfNoQuestions(result) {
+    console.log('reuslts.length', result.length);
+    if (!result.length) {
+        console.log('results.length less than 1')
+        $("#no-questions-alert").show();
+        $("#quiz-submit-button").hide();
+    }
+}
+
 function evaluateSubmission() {
     //gives name based on question-id and returns value based on selected choice
     const formData = $("form").serializeArray();
     console.log('formdata', formData);
 
+    //TODO - ajax respond to save answer sto backend !!
+    $.ajax({
+        url: '/retrieve-results',
+        type: "POST",
+        data: {formData}
+    }).done(result => {
+        console.log('result', result);
+        processResults(result);
+        resultsMode();
+    })
+}
+
+function processResults(result) {
+    setPercentage(result);
+    calculateAndSetStars(result);
+
+}
+
+function setPercentage(result) {
+    const resultPercentage = result + '%';
+    document.getElementById('results-percentage').innerHTML = resultPercentage;
+    $("#results-percentage-spinner").hide();
+}
+
+function calculateAndSetStars(result) {
+    const noOfStars = result / 20;
+    setStars(noOfStars);
+}
+
+function setStars(noOfStars) {
+    for (i = 0; i < noOfStars; i++) {
+        $("#results-star-container").append(STARS_TEMPLATE);
+    }
+
+    $("#results-star-spinner").hide();
+    $("#results-star-container").show();
 }

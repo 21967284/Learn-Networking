@@ -1,127 +1,180 @@
 {% extends "base.html" %}
 
 {% block content %}
-<script src="{{ url_for('static', filename='javascript/content.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/content.js') }}"></script>
 
 
-<div class="mx-5">
-    <!-- Explanation/text portion -->
-    <div class="green-glass-card p-3" id="explanation-card">
-        <h4 class="white-text">Explanation</h4>
+    <div class="mx-5">
+        <!-- Explanation/text portion -->
+        <div class="green-glass-card p-3" id="explanation-card">
+            <h4 class="white-text">Explanation</h4>
 
-        <div class="card p-4">
-            <p>
-                The link layer is the lowest layer in the Internet Protocol Suite (IP) suite. What this means is that
-                this layer is the layer closest to the physical hardware.
-            </p>
-            <p>
-                You may not have given much thought to how a computer is able to do all the things its able to do based
-                on just electricity and voltage - but there is actually a lot that needs to happen.
-            </p>
-            <p>
-                In this layer, we'll explore what those things are.
-            </p>
+            <div class="card p-4">
+                <p>
+                    The link layer is the lowest layer in the Internet Protocol Suite (IP) suite. What this means is
+                    that
+                    this layer is the layer closest to the physical hardware.
+                </p>
+                <p>
+                    You may not have given much thought to how a computer is able to do all the things its able to do
+                    based
+                    on just electricity and voltage - but there is actually a lot that needs to happen.
+                </p>
+                <p>
+                    In this layer, we'll explore what those things are.
+                </p>
 
 
-            <!-- Accordion -->
-            <div class="mt-2">
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                From electricity to bytes
-                            </button>
-                        </h2>
+                <!-- Accordion -->
+                <div class="mt-2">
+                    <div class="accordion" id="link-layer-accordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="link-layer-accordion-heading-one">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    From electricity to bytes
+                                </button>
+                            </h2>
 
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <p>
-                                    As you may recall, a byte is several bits put together. And a bit is just a piece of
-                                    information representing either 0 or 1, true or false, on or off.
-                                </p>
-                                <p>
-                                    How might we use electricity to represent this information?
-                                </p>
-                                <p>
-                                    Well, it's actually pretty simple. We can turn on the electricity to represent
-                                    on/true/1 and we can turn off the electricity to represent off/false/0.
-                                </p>
-                                <p>
-                                    We put several of these on and off signals together and bam! We have a byte!
-                                </p>
-                                <p>
-                                    That's how I, the great mighty, <code>[byte name]</code> came about!
-                                </p>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>
+                                        As you may recall, a byte is several bits put together. And a bit is just a
+                                        piece of
+                                        information representing either 0 or 1, true or false, on or off.
+                                    </p>
+                                    <p>
+                                        How might we use electricity to represent this information?
+                                    </p>
+                                    <p>
+                                        Well, it's actually pretty simple. We can turn <b>on</b> the electricity to
+                                        represent
+                                        on/true/1 and we can turn <b>off</b> the electricity to represent off/false/0.
+                                    </p>
+                                    <p>
+                                        We put several of these on and off signals together and bam! We have a byte!
+                                    </p>
+                                    <p>
+                                        That's how I, the great mighty, <code>[byte name]</code> came about!
+                                    </p>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Uh-oh! What if something goes wrong?
-                            </button>
-                        </h2>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    But, how do we make sure the data sent is correct?
+                                </button>
+                            </h2>
 
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <strong>This is the second item's accordion body.</strong> It is hidden by default,
-                                until
-                                the collapse
-                                plugin adds the appropriate classes that we use to style each element. These classes
-                                control
-                                the overall
-                                appearance, as well as the showing and hiding via CSS transitions. You can modify any of
-                                this with
-                                custom CSS or overriding our default variables. It's also worth noting that just about
-                                any
-                                HTML can go
-                                within the <code>.accordion-body</code>, though the transition does limit overflow.
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>
+                                        Great question!
+                                    </p>
+                                    <p>
+                                        Given how much data we have in the modern environment, there are bound to be the
+                                        occasional errors that arise when encoding information. There is actually
+                                        a great deal of thought that has been done to create mechanisms that ensures our
+                                        messages are sent and received as we intended for them to.
+                                    </p>
+                                    <p>
+                                        One of these mechanisms is the Hamming Code! I will provide a simplfied
+                                        explanation for this tutorial, but if you want to learn more, you are always
+                                        welcome to visit the ever-helpful <a
+                                            href="https://en.wikipedia.org/wiki/Hamming_code">Wikipedia</a>
+                                    </p>
+                                    <p>
+                                        In essence, hamming code creates 'codewords' by grouping together several bits
+                                        of information <b>and</b> checking bits. As their name suggest, these checking
+                                        bits serve as a way to check if all the other bits are correct. So if we want to
+                                        make sure our information is correct, we just check the checking bits! If they
+                                        are wrong or not quiet what we expect, then we know the information sent is not
+                                        correct. Sometimes, depending on what part of the information is wrong, we can
+                                        even correct the wrong bit!
+                                    </p>
+
+
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                Key idea 3
-                            </button>
-                        </h2>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                    Converting all data into bits sounds like we're dealing with a lot of data! Can
+                                    computers deal with that much data?
+                                </button>
+                            </h2>
 
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <strong>This is the third item's accordion body.</strong> It is hidden by default, until
-                                the
-                                collapse
-                                plugin adds the appropriate classes that we use to style each element. These classes
-                                control
-                                the overall
-                                appearance, as well as the showing and hiding via CSS transitions. You can modify any of
-                                this with
-                                custom CSS or overriding our default variables. It's also worth noting that just about
-                                any
-                                HTML can go
-                                within the <code>.accordion-body</code>, though the transition does limit overflow.
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>
+                                        Yes! Computers can deal with a lot of data!
+                                    </p>
+                                    <p>
+                                        One of the ways this layer helps the computer to process lots of data is to
+                                        chunked data into <i>Frames</i>. It may have a fancy sounding name, but in
+                                        reality, frames are just a group of data.
+                                    </p>
+                                    <p>
+                                        Along with the data that we are interested in, each frame also has extra data
+                                        about the frame itself. These extra data helps the computer figure out what to
+                                        make of these frames and includes important information like the destination of
+                                        this frame!
+                                    </p>
+                                    <p>
+                                        Transmitting data in frames also helps us make sure our data is arriving in the
+                                        correct order. For example, if the data we are about to send looks like:
+                                    </p>
+                                    <p>
+                                        001010100010
+                                    </p>
+                                    <p>
+                                        And the computer receives:
+                                    </p>
+                                    <p>
+                                        110010101000
+                                    </p>
+                                    <p>
+                                        There is no way for the receiving computer to tell that it has received the
+                                        information in the correct order! But with frames, if we are sending:
+                                    </p>
+                                    <p>
+                                        Frame 1, Frame 2, Frame 3
+                                    </p>
+                                    <p>
+                                        And the receiving computer receives:
+                                    </p>
+                                    <p>
+                                        Frame 2, Frame 3, Frame 1
+                                    </p>
+                                    <p>
+                                        We can tell straight away that something somewhere has gone wrong.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <p class="mt-2">Think you've gotten the hang on it? Test yourself with the quiz!</p>
+            </div>
+
+
+            <div class=" d-flex justify-content-end mt-2">
+                <button type="button" class="btn btn-purple btn-lg" onClick="goToQuiz()">
+                    Go to quiz
+                    <i class="bi bi-arrow-right"></i>
+                </button>
             </div>
         </div>
-
-
-        <div class=" d-flex justify-content-end mt-2">
-            <button type="button" class="btn btn-purple btn-lg" onClick="goToQuiz()">
-                Go to quiz
-                <i class="bi bi-arrow-right"></i>
-            </button>
-        </div>
-    </div>
 {% endblock %}
