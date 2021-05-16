@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- login/register input box -->
+<div class="row vertical-center-row justify-content-md-center">
+    <div class="white-text text-center p-3 col-10 transparent-glass-card ">
+        <!-- login form -->
+        <div id="loginForm">
+            <form action="" method="post" novalidate>
+                {{ questions_form.hidden_tag() }}
+                <div class="mb-3">
+                    {{ questions_form.section.label }}<br>
+                    {{ questions_form.section(class_="col-5") }}<br>
+                    {% for error in questions_form.section.errors %}
+                    <p class="validation-error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    {{ questions_form.question.label }}<br>
+                    {{ questions_form.question(class_="col-10") }}<br>
+                    {% for error in questions_form.question.errors %}
+                    <p class="validation-error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    {{ questions_form.correct_answer.label }}<br>
+                    {{ questions_form.correct_answer(class_="col-10") }}<br>
+                    {% for error in questions_form.correct_answer.errors %}
+                    <p class="validation-error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    {{questions_form.answer_options.label}}
+                    {% for answers in questions_form.answer_options %}
+                    <div class="mb-3">
+                        {{ answers(class_="col-10") }}<br>
+                        {% for error in answers.errors %}
+                        <p class="validation-error">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+                <p>{{ questions_form.submit() }}</p>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

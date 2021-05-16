@@ -1,12 +1,15 @@
 ## This program defines the schema of our relational database using SQLAlchemy ##
 
-from app import db, login
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from app import db, login
+
 
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
 
 # User table (UserMixin is used for Flask-login)
 class User(UserMixin, db.Model):
@@ -17,11 +20,12 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(128), index=True, unique=True)
     first_name = db.Column(db.String(64))
     last_name = db.Column(db.String(64))
-    admin = db.Column(db.Integer, index=True)
+    admin = db.Column(db.Boolean, index=True)
     # password stored as a hash for security
     password_hash = db.Column(db.String(128))
     # there is a M:M relationship between User and Question
     questions = db.relationship('Question', secondary='mark')
+    progress = db.Column(db.Integer)
 
     # define how entries into this table are represented
     def __repr__(self):
@@ -30,10 +34,13 @@ class User(UserMixin, db.Model):
     # generate a hash code associated with the user's password
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
-    
+
     # compare the entered password hash to the one stored on the database
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def is_admin(self):
+        return self.admin
 
     # stub for actual method
     def retrieve_results(self):
@@ -42,6 +49,8 @@ class User(UserMixin, db.Model):
     # stub for actual method
     def retrieve_progress(self):
         pass
+
+
 
 # store questions in a table
 class Question(db.Model):
@@ -60,6 +69,7 @@ class Question(db.Model):
     def __repr__(self):
         return 'Question {}'.format(self.question)
 
+
 # stores answers (right and wrong) associated with each multi-choice question
 class Answer(db.Model):
     __tablename__ = 'answer'
@@ -69,6 +79,7 @@ class Answer(db.Model):
 
     def __repr__(self):
         return 'Answer {}'.format(self.answer)
+
 
 # relational table to store user's marks for each question
 class Mark(db.Model):

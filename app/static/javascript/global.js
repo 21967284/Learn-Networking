@@ -66,7 +66,6 @@ function isContentPage() {
  */
 function showElementById(id) {
     let element = document.getElementById(id);
-
     element.classList.forEach( className => {
         if (className === 'd-none') {
             element.classList.remove("d-none");

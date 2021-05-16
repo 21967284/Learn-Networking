@@ -1,5 +1,6 @@
+from app.models import User
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, FieldList, SelectField, FormField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
 from app.models import User
 
@@ -9,6 +10,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired("Enter a password")])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField("Sign In")
+
 
 # handles fields of the register form
 class RegisterForm(FlaskForm):
@@ -35,3 +37,14 @@ class RegisterForm(FlaskForm):
         if user is not None:
             # could possible add a 'reset password' functionality to help in this case
             raise ValidationError('There is already an account associated with that email.')
+
+
+class ManageQuestionsForm(FlaskForm):
+    section_choice = ['Link', 'Network', 'Transport', 'Application']
+    section = SelectField('Topic of question', choices=section_choice,
+                          validators=[DataRequired("Enter a corresponding topic for the question")])
+    question = StringField('Question body text', validators=[DataRequired("Enter a question")])
+    # answer_options = FieldList(FormField(ManageAnswersForm), min_entries=3, max_)
+    answer_options = FieldList(StringField('Incorrect answer options', validators=[DataRequired("Enter an answer option")]), min_entries=3)
+    correct_answer = StringField('Correct answer', validators=[DataRequired("A correct answer is required")])
+    submit = SubmitField("Save Question")
