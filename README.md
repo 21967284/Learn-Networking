@@ -1,9 +1,9 @@
 # A Journey Through the TCP/IP Model
 **A journey through the TCP/IP Model** is an educational app designed to help IT students understand the TCP/IP model of networking. It aims to simplify networking concepts by using plain and fun language to describe complex topics and uses 'bite-sized' information to avoid intimidating students. 
 
-For each of the layers in the TCP/IP Model (Link, Network, Transport, Application), there are short explanations describing the key information about each layer. After each explanation section, there is a quiz question, where users can test their understanding. Users can submit their quiz answers and receive results on their progress. 
+For each of the layers in the TCP/IP Model (Link, Network, Transport, Application), there are short explanations describing the key information about each layer. After each explanation section, there is a quiz section, where users can test their understanding. Users can submit their quiz answers and receive results on their progress. 
 
-A user must login to be able to access the explanation and quiz content for each layer. Once a user is logged in, they are provided access to the very first layer (ie the Link Layer). Once they've read through this module and completed the quiz, then they will be able to proceed to the next layer (ie the Network Layer). Students must complete the previous layer module before accessing the next one. 
+A user must login to be able to access the explanation and quiz content. Once a user is logged in, they are provided access to the very first layer (ie the Link Layer). Once they've read through this module and completed the quiz, then they will be able to proceed to the next layer (ie the Network Layer). Students must complete the previous layer module before accessing the next one. 
 
 At any given stage, users can also view their overall progress and accuracy stats by clicking on the **Progress** link
 
@@ -14,7 +14,7 @@ Admins may create additional questions via the **Manage Questions** link. The qu
 This app has also been created with mobile-responsiveness in mind. The best place to see mobile responsive behaviour is in: 
 * nav-bar - the nav-bar will contract down to just icons and space themselves out in mobile/small device mode
 * progress page - this page's tile will automatically re-arrange themselves to scroll horizontally when in mobile/small device mode
-* All other pages - The content on all other pages (e.g. content, explanation, quiz, results, login, register) should also shrink/expand according to device size
+* All other pages - The content on all other pages (e.g. content, explanation, quiz, results, login, register) will also shrink/expand according to device size
 
 
 ##Libraries used
@@ -43,6 +43,6 @@ Standard user account:
 
 Admin user account:
 
-    username: test_admin
+    username: admin
     password: admin
     
