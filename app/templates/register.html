@@ -45,6 +45,7 @@
                             <p class="validation-error">{{ error }}</p>
                         {% endfor %}
                     </div>
+                    <p>{{ rForm.remember_me() }} {{rForm.remember_me.label }}</p>
                     <p>{{ rForm.submit() }}</p>
                 </form>
             </div>
@@ -55,11 +56,6 @@
         <div id="loginButton" class="col-md-2 col-md-offset-4">
             <div class="white-text">Already have an account?</div>
             <a class="btn btn-purple register-btn" href="{{ url_for('login') }}">Log in</a>
-        </div>
-        <!-- reset password #TODO MIGHT ADD FUNCTIONALITY LATER-->
-        <div class="col-md-2 align-self-end">
-            <div class="white-text">Forgot your password?</div>
-            <button class="btn btn-purple">Reset Password</button>
         </div>
     </div>
 

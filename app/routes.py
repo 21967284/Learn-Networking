@@ -65,6 +65,9 @@ def register():
         # add the new user to the database and save the changes
         db.session.add(user)
         db.session.commit()
+
+        # log the user in
+        login_user(user, remember=rForm.remember_me.data)
         # we can edit the style of flash messages to help the website interact with users
         flash('Congratulations {}, you are now a registered user!'.format(rForm.firstname.data))
         return redirect(url_for('login'))
