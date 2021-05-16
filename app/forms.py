@@ -20,6 +20,7 @@ class RegisterForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired("Enter a password")])
     # make sure the password and confirmpassword fields are equal
     confirmpassword = PasswordField('Confirm Password', validators=[DataRequired("Enter a password"), EqualTo('password', "Passwords must match")])
+    remember_me = BooleanField('Remember Me')
     submit = SubmitField("Register Account")
 
     # confirm that the username is unique in the database

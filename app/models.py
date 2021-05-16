@@ -12,7 +12,7 @@ def load_user(id):
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
-    # since we are likely to want to gather data using more than one field in User, we index username and email
+    # since we are likely to want to gather data using more than one field in User, we index username, email, and admin
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(128), index=True, unique=True)
     first_name = db.Column(db.String(64))
@@ -20,8 +20,7 @@ class User(UserMixin, db.Model):
     admin = db.Column(db.Integer, index=True)
     # password stored as a hash for security
     password_hash = db.Column(db.String(128))
-    # there is a M:M relationship between User and Question - I do believe there is another way to do this
-    # so this may be prone to change later
+    # there is a M:M relationship between User and Question
     questions = db.relationship('Question', secondary='mark')
 
     # define how entries into this table are represented
@@ -35,6 +34,14 @@ class User(UserMixin, db.Model):
     # compare the entered password hash to the one stored on the database
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    # stub for actual method
+    def retrieve_results(self):
+        pass
+
+    # stub for actual method
+    def retrieve_progress(self):
+        pass
 
 # store questions in a table
 class Question(db.Model):
