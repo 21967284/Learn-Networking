@@ -70,7 +70,60 @@ def auto_build_questions():
             'Best',
             'Worst'
         ]
-    },{
+    }, {
+        'question': 'Why do networks need to send data in packets?',
+        'section': 'Network',
+        'correctAnswer': 'To abide by message size limitations and help with routing',
+        'answerOptions': [
+            'Because networks find it easier to send smaller messages',
+            'To provide the lazy networks with more jobs to do!',
+            'It\'s a trick question! They don\'t :)'
+        ]
+    }, {
+        'question': 'How do network nodes know where to send their next packet?',
+        'section': 'Network',
+        'correctAnswer': 'By first exchanging a routing table with neighbour nodes to map out the network',
+        'answerOptions': [
+            'Using the magical powers of complex maths algorithms',
+            'It\'s mostly just "guess and check" - eventually they\'ll get the right answer',
+            'They look at a network diagram and follow the easiest path from that'
+        ]
+    }, {
+        'question': 'What is subnet masking?',
+        'section': 'Network',
+        'correctAnswer': 'A method of labelling IPv4 addresses that avoids wasted addressing bits on small networks',
+        'answerOptions': [
+            'When one network pretends to be a different one',
+            'A way for computers to know who is on their network',
+            'It makes sure data gets from point A to point B'
+        ]
+    }, {
+        'question': 'What is a port?',
+        'section': 'Transport',
+        'correctAnswer': 'a 16-bit positive integer that can be used to uniquely identify which application needs which message',
+        'answerOptions': [
+            'Wine',
+            '...not wine?',
+            'It\'s like the USB of networking probably'
+        ]
+    }, {
+        'question': 'How can we ensure a reliable connection is established?',
+        'section': 'Transport',
+        'correctAnswer': 'Sequence numbers, acknowledgement, and calculating the expected round-trip time of messages',
+        'answerOptions': [
+            'Make sure all the cables are laid flat with no EMR interference',
+            'Resend the same message a few times to reduce the chance of errors or message loss'
+        ]
+    }, {
+        'question': 'Flow control uses _____ to protect a receiver from being overwhelmed by messages',
+        'section': 'Transport',
+        'correctAnswer': 'a flow control window',
+        'answerOptions': [
+            'a congestion control window',
+            'trial and error',
+            'intuition and empathy'
+        ]
+    }, {
         'question': 'The Application Layer is the ______ layer in the TCP/IP Model',
         'section': 'Application',
         'correctAnswer': 'Highest',
@@ -79,7 +132,7 @@ def auto_build_questions():
             'Best',
             'Worst'
         ]
-    },{
+    }, {
         'question': 'Which of the below protocols would you use if you want to make sure that your communications are secure?',
         'section': 'Application',
         'correctAnswer': 'SSH',
@@ -88,7 +141,7 @@ def auto_build_questions():
             'Telnet',
             'SNMP'
         ]
-    },{
+    }, {
         'question': 'What does HTTP stand for?',
         'section': 'Application',
         'correctAnswer': 'HyperText Transfer Protocol',

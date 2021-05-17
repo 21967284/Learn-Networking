@@ -1,6 +1,9 @@
 ## This program defines the schema of our relational database using SQLAlchemy ##
+## Two versions of the migrations/ folder are included (one labelled by migrations_old/. ##
+## This is because only a small change was made to an already existing column, which was not being picked up by flask db migrate. ## 
 
 from flask_login import UserMixin
+from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db, login
@@ -24,8 +27,8 @@ class User(UserMixin, db.Model):
     # password stored as a hash for security
     password_hash = db.Column(db.String(128))
     # there is a M:M relationship between User and Question
-    questions = db.relationship('Question', secondary='mark')
-    progress = db.Column(db.Integer)
+    questions = db.relationship('Mark', back_populates="user")#secondary='mark', back_populates="users")
+    progress = db.Column(db.Integer, default=0)
 
     # define how entries into this table are represented
     def __repr__(self):
@@ -40,6 +43,8 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def update_progress(self, progress):
+        if self.progress is None:
+            self.progress=0
         if progress >= self.progress:
             self.progress = progress
             return True
@@ -59,7 +64,7 @@ class Question(db.Model):
     correct_answer = db.Column(db.Integer)
     # provides a list of answer options to be presented to the user
     answer_options = db.relationship('Answer', backref='question', lazy='dynamic')
-    users = db.relationship('User', secondary='mark')
+    users = db.relationship('Mark', back_populates="question")#secondary='mark', back_populates="questions")
 
 
     def __repr__(self):
@@ -83,6 +88,8 @@ class Mark(db.Model):
     mark = db.Column(db.Integer)
     question_id_fk = db.Column(db.Integer, db.ForeignKey('question.question_id'), primary_key=True)
     user_id_fk = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    user = db.relationship('User', back_populates="questions")
+    question = db.relationship('Question', back_populates="users")
 
     def __repr__(self):
         return 'Mark {}'.format(self.mark)

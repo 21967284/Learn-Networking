@@ -35,7 +35,7 @@
                     you've been doing in the course, just click the button below.</span>
                   <br>
                   <!-- This button needs to be replaced with the player's current progress -->
-                  <button type="button" class=" btn btn-purple btn-md">
+                  <button type="button" class=" btn btn-purple btn-md" onClick="location.href='{{ url_for('progress') }}'">
                     Progress
                     <i class="bi bi-check2-square"></i>
                 {% endif %}
@@ -84,12 +84,25 @@
           </div>
         </div>
 
+        {% if current_user.is_authenticated %}
         <div class=" d-flex justify-content-end mt-2">
-          <button type="button" class=" btn btn-purple btn-lg" onClick="location.href='{{ url_for('link') }}'">
+          <button type="button" class=" btn btn-purple btn-lg" onClick="location.href='{{ url_for('next_page') }}'">
+          {% if current_user.progress == 0 %}
             Begin Journey
+          {% else %}
+            Continue Your Journey!
+          {% endif %}
             <i class="bi bi-arrow-right"></i>
           </button>
         </div>
+        {% else %}
+        <div class=" d-flex justify-content-end mt-2">
+          <button type="button" class=" btn btn-purple btn-lg" onClick="location.href='{{ url_for('login') }}'">
+            Log in to start your journey
+            <i class="bi bi-door-open"></i>
+          </button>
+        </div>
+        {% endif %}
       </div>
 
 {% endblock %}

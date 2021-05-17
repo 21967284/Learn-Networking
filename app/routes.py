@@ -170,6 +170,19 @@ def link():
 def link_quiz():
     return render_template('quiz.html', title="Link Layer Quiz", nav_items=nav_items(current_user))
 
+@app.route('/next-page')
+@login_required
+def next_page():
+    user_data = User.query.filter_by(id=current_user.id).first()
+    completed_pages = user_data.progress
+
+    page_order = ['link', 'network', 'transport', 'application']
+
+    if completed_pages <= 3:
+        return redirect(url_for(page_order[completed_pages]))
+    else:
+        return redirect(url_for('progress'))
+
 
 @app.route('/retrieve-progress-data')
 @login_required
@@ -183,6 +196,7 @@ def progress_data():
         'Transport': False,
         'Application': False,
     }
+    print('progress={}'.format(progress))
 
     if progress:
         if progress >= 1:
