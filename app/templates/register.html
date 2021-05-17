@@ -3,44 +3,44 @@
 {% block content %}
 
     <!-- login/register input box -->
-    <div class="row vertical-center-row justify-content-md-center">
-        <div class="white-text text-center p-3 col-md-4 col-md-offset-4 transparent-glass-card">
+    <div class="row vertical-center-row justify-content-center">
+        <div class="white-text text-center p-3 col-4 col-offset-4 transparent-glass-card">
             <!-- register form -->
             <div id="registerForm">
                 <form action="" method="post" novalidate>
                     {{ rForm.hidden_tag() }}
                     <div class="mb-2">
                         {{ rForm.firstname.label }}<br>
-                        {{ rForm.firstname(class_="col-md-8") }}
+                        {{ rForm.firstname(class_="col-8") }}
                     </div>
                     <div class="mb-2">
                         {{ rForm.lastname.label }}<br>
-                        {{ rForm.lastname(class_="col-md-8") }}
+                        {{ rForm.lastname(class_="col-8") }}
                     </div>
                     <div class="mb-2">
                         {{ rForm.username.label }}<br>
-                        {{ rForm.username(class_="col-md-8") }}<br>
+                        {{ rForm.username(class_="col-8") }}<br>
                         {% for error in rForm.username.errors %}
                             <p class="validation-error">{{ error }}</p>
                         {% endfor %}
                     </div>
                     <div class="mb-2">
                         {{ rForm.email.label }}<br>
-                        {{ rForm.email(class_="col-md-8") }}<br>
+                        {{ rForm.email(class_="col-8") }}<br>
                         {% for error in rForm.email.errors %}
                             <p class="validation-error">{{ error }}</p>
                         {% endfor %}
                     </div>
                     <div class="mb-2">
                         {{ rForm.password.label }}<br>
-                        {{ rForm.password(class_="col-md-8") }}<br>
+                        {{ rForm.password(class_="col-8") }}<br>
                         {% for error in rForm.password.errors %}
                             <p class="validation-error">{{ error }}</p>
                         {% endfor %}
                     </div>
                     <div class="mb-2">
                         {{ rForm.confirmpassword.label }}<br>
-                        {{ rForm.confirmpassword(class_="col-md-8") }}<br>
+                        {{ rForm.confirmpassword(class_="col-8") }}<br>
                         {% for error in rForm.confirmpassword.errors %}
                             <p class="validation-error">{{ error }}</p>
                         {% endfor %}
@@ -51,9 +51,9 @@
             </div>
         </div>
     </div>
-    <div class="row align-items-end justify-content-md-center">
+    <div class="row align-items-end justify-content-center">
         <!-- toggle login page -->
-        <div id="loginButton" class="col-md-2 col-md-offset-4">
+        <div id="loginButton" class="col-2 col-offset-4">
             <div class="white-text">Already have an account?</div>
             <a class="btn btn-purple register-btn" href="{{ url_for('login') }}">Log in</a>
         </div>

@@ -63,10 +63,10 @@ function loadAndProcessProgressData() {
  */
 function processAccuracyData(accuracyData) {
     //create an array with the accuracy percentage only
-    //essentially converts { 'Application': 40, 'Transport': 10, 'Network': 50, 'Link': 90} to [40, 10, 50, 90]
-    const accuracyResultsArray = Object.entries(accuracyData).map(entry => {
-        return entry[1];
-    });
+    //essentially converts { 'Link': 40, 'Network': 10, 'Transport': 50, 'Application': 90} to [40, 10, 50, 90]
+
+    const accuracyResultsArray = []
+    accuracyResultsArray.push(accuracyData.Link, accuracyData.Network, accuracyData.Transport, accuracyData.Application);
 
     const overallAccuracy = calculateAndSetOverallAccuracy(accuracyResultsArray);
     const noOfStars = calculateAccuracyStars(overallAccuracy);
@@ -114,9 +114,8 @@ function calculateAccuracyStars(overallAccuracy) {
  * @param accuracyData
  */
 function processProgressData(progressData) {
-    const progressDataArray = Object.entries(progressData).map(entry => {
-        return entry[1];
-    });
+    const progressDataArray = []
+    progressDataArray.push(progressData.Link, progressData.Network, progressData.Transport, progressData.Application);
 
     const noOfStars = progressDataArray.filter(Boolean).length;
 
@@ -146,7 +145,7 @@ function buildAccuracyChart(accuracyData) {
     new Chart(progressChartElement, {
         type: 'bar',
         data: {
-            labels: ['Application', 'Transport', 'Network', 'Link'],
+            labels: ['Link', 'Network', 'Transport', 'Application'],
             datasets: [{
                 label: 'Percentage completion by topic',
                 data: accuracyData,
@@ -184,7 +183,7 @@ function buildProgressChart(progressData) {
     new Chart(progressChartElement, {
         type: 'doughnut',
         data: {
-            labels: ['Application', 'Transport', 'Network', 'Link'],
+            labels: ['Link', 'Network', 'Transport', 'Application'],
             datasets: [{
                 label: 'Percentage completion by topic',
                 data: [1, 1, 1, 1],
