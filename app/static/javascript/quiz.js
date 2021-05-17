@@ -195,12 +195,3 @@ function setStars(noOfStars) {
     $("#results-star-spinner").hide();
     $("#results-star-container").show();
 }
-
-/**
- * Proceeds to explanation section of next layer
- */
-function proceedToNextLayer() {
-    const currentLayer = document.title.replace(' Layer Quiz', '');
-    const nextLayer = LAYER_ORDER[LAYER_ORDER.indexOf(currentLayer) + 1].toLowerCase();
-    window.location.href = `${nextLayer}`;
-}
