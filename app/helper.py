@@ -150,11 +150,9 @@ def auto_build_questions():
             'Heaps of Text Transferal Process',
             'HyperText Transferance Process'
         ]
-    }
-    ]
+    }]
 
     for question in questions:
-        print(question)
         answer_options = []
 
         for answer in question['answerOptions']:
@@ -167,8 +165,6 @@ def auto_build_questions():
         answer_options.append(correct_answer)
         db.session.add(correct_answer)
 
-        print(question['section'])
-        print(question['question'])
 
         question_to_commit = Question(
             section = question['section'],
@@ -186,7 +182,8 @@ def auto_create_login():
         first_name="John",
         last_name="Smith",
         username="test",
-        email="John@gmail.com"
+        email="John@gmail.com",
+        progress=0
     )
     test_user.set_password("test")
     db.session.add(test_user)

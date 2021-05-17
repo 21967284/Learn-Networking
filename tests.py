@@ -113,7 +113,7 @@ class SystemTest(unittest.TestCase):
             angel.set_password('a')
             db.session.add(alex)
             db.session.add(angel)
-            #print('user', angel.check_password('a'))
+
             db.session.commit()
             self.driver.get('http://localhost:5000/autopopulate')
 

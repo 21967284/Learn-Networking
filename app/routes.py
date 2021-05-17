@@ -42,14 +42,12 @@ def login():
             return redirect(url_for('login'))
         login_user(user, remember=lForm.remember_me.data)
         # handle users clicking on pages that require login
-        print('asdljfhsajkdf')
         next_page = request.args.get('next')
         # if there is no specified next page, or the 'next' query points to a page outside this domain
         if not next_page or url_parse(next_page).netloc != '':
             # set the default location to the home page
             next_page = url_for('home')
         return redirect(next_page)
-    print
     return render_template('login.html', title="Login", lForm=lForm, nav_items=nav_items(current_user))
 
 
@@ -74,8 +72,8 @@ def register():
             first_name=rForm.firstname.data,
             last_name=rForm.lastname.data,
             username=rForm.username.data,
-            email=rForm.email.data
-            )
+            email=rForm.email.data,
+            progress=0)
         user.set_password(rForm.password.data)
         # add the new user to the database and save the changes
         db.session.add(user)
@@ -104,7 +102,8 @@ def register_admin():
             last_name=rForm.lastname.data,
             username=rForm.username.data,
             email=rForm.email.data,
-            admin=True)
+            admin=True,
+            progress=0)
         user.set_password(rForm.password.data)
         # add the new user to the database and save the changes
         db.session.add(user)
@@ -192,10 +191,10 @@ def progress_data():
     progress = user_data.progress
 
     progress_by_topic = {
-        'Application': False,
-        'Transport': False,
-        'Network': False,
         'Link': False,
+        'Network': False,
+        'Transport': False,
+        'Application': False,
     }
     print('progress={}'.format(progress))
 
