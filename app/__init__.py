@@ -8,6 +8,8 @@ from flask_login import LoginManager
 app = Flask(__name__)
 # run the config function to establish environment variables
 app.config.from_object(Config)
+# for testing, we uncomment this line to use the test database or memory
+#app.config.from_object(TestingConfig)
 # handle database management using SQLAlchemy and Flask-migrate (for portable databases)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db, render_as_batch=True)

@@ -79,8 +79,12 @@
 
             <div class=" d-flex justify-content-end mt-2">
                 <button type="button" class=" btn btn-purple btn-lg" ,
-                        onClick="location.href='{{ url_for('network') }}'">
+                        onClick="location.href='{{ url_for('next_page') }}'">
+                    {% if current_user.progress < 3 %}
                     To the next Layer!
+                    {% else %}
+                    See how you did!
+                    {% endif %}
                     <i class="bi bi-arrow-right"></i>
                 </button>
             </div>

@@ -1,16 +1,17 @@
 import unittest
 
-from selenium import webdriver
+from selenium import webdriver, common
 
 from app import app, db
 from app.models import User
+from app.forms import RegisterForm, ValidationError
 
 import time
 
 class UserModelCase(unittest.TestCase):
     def setUp(self):
         # use a fake database for testing
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
+        #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         db.create_all()
 
         user = User(id=1, username='john', progress=2)
@@ -49,7 +50,7 @@ class UserModelCase(unittest.TestCase):
 class RegisterFormCase(unittest.TestCase):
     def setUp(self):
         # use a fake database for testing
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
+        #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         db.create_all()
         # create an entry into the database to ensure uniqueness tests work
         u = User(username='unique', email='unique@email.com')
@@ -96,12 +97,14 @@ class SystemTest(unittest.TestCase):
     driver = None
 
     def setUp(self):
-        self.driver = webdriver.Safari()
+        # depending on preferred testing driver, you may select from below
+        #self.driver = webdriver.Safari()
+        self.driver = webdriver.Firefox()
 
         if not self.driver:
             self.skipTest('Web browser not available')
         else:
-            app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
+            #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
             db.create_all()
             alex = User(id=1, username='alex', email='alex@gmail.com', first_name='Alex', last_name='Wyatt', admin=True)
             angel = User(id=2, username='angel', email='angel@gmail.com', first_name='Angel', last_name='Thanur',
@@ -110,7 +113,7 @@ class SystemTest(unittest.TestCase):
             angel.set_password('a')
             db.session.add(alex)
             db.session.add(angel)
-            print('user', angel.check_password('a'))
+            #print('user', angel.check_password('a'))
             db.session.commit()
             self.driver.get('http://localhost:5000/autopopulate')
 
@@ -161,74 +164,74 @@ class SystemTest(unittest.TestCase):
         except common.exceptions.NoSuchElementException:
             self.fail("could not find Logout button!")
 
-    # def test_login_should_raise_error_if_user_does_not_exist_in_db(self):
-    #
-    #     self.driver.get('http://localhost:5000/login')
-    #
-    #     # login should fail if user is not in database
-    #     username = self.driver.find_element_by_id('username')
-    #     username.send_keys('completely new user')
-    #     password = self.driver.find_element_by_id('password')
-    #     password.send_keys('fake password')
-    #
-    #     self.driver.implicitly_wait(5)
-    #
-    #     submit = self.driver.find_element_by_id('submit')
-    #     submit.click()
-    #
-    #     self.driver.implicitly_wait(15)
-    #
-    #     alert = self.driver.find_element_by_id('flash-alert')
-    #     error_message = "Invalid username or password"
-    #     alert_innerHTML = alert.get_attribute('innerHTML')
-    #     result = error_message in alert_innerHTML
-    #     self.assertTrue(result)
+    def test_login_should_raise_error_if_user_does_not_exist_in_db(self):
+    
+         self.driver.get('http://localhost:5000/login')
+    
+         # login should fail if user is not in database
+         username = self.driver.find_element_by_id('username')
+         username.send_keys('completely new user')
+         password = self.driver.find_element_by_id('password')
+         password.send_keys('fake password')
+    
+         self.driver.implicitly_wait(5)
+    
+         submit = self.driver.find_element_by_id('submit')
+         submit.click()
+    
+         self.driver.implicitly_wait(15)
+    
+         alert = self.driver.find_element_by_id('flash-alert')
+         error_message = "Invalid username or password"
+         alert_innerHTML = alert.get_attribute('innerHTML')
+         result = error_message in alert_innerHTML
+         self.assertTrue(result)
 
-    # def test_login_should_raise_error_if_password_is_incorrect(self):
-    #
-    #     self.driver.get('http://localhost:5000/login')
-    #
-    #     username = self.driver.find_element_by_id('username')
-    #     password = self.driver.find_element_by_id('password')
-    #
-    #     username.send_keys('angel@gmail.com')
-    #     password.send_keys('123')
-    #
-    #     self.driver.implicitly_wait(5)
-    #
-    #     submit = self.driver.find_element_by_id('submit')
-    #     submit.click()
-    #
-    #     self.driver.implicitly_wait(15)
-    #
-    #     alert = self.driver.find_element_by_id('flash-alert')
-    #     error_message = "Invalid username or password"
-    #     alert_innerHTML = alert.get_attribute('innerHTML')
-    #     result = error_message in alert_innerHTML
-    #     self.assertTrue(result)
+    def test_login_should_raise_error_if_password_is_incorrect(self):
+    
+         self.driver.get('http://localhost:5000/login')
+    
+         username = self.driver.find_element_by_id('username')
+         password = self.driver.find_element_by_id('password')
+    
+         username.send_keys('angel@gmail.com')
+         password.send_keys('123')
+    
+         self.driver.implicitly_wait(5)
+    
+         submit = self.driver.find_element_by_id('submit')
+         submit.click()
+    
+         self.driver.implicitly_wait(15)
+    
+         alert = self.driver.find_element_by_id('flash-alert')
+         error_message = "Invalid username or password"
+         alert_innerHTML = alert.get_attribute('innerHTML')
+         result = error_message in alert_innerHTML
+         self.assertTrue(result)
 
-    # def test_login_should_not_raise_error_if_user_exists_in_db_and_correct_pw_provided(self):
-    #
-    #     self.driver.get('http://localhost:5000/login')
-    #
-    #     username = self.driver.find_element_by_id('username')
-    #     password = self.driver.find_element_by_id('password')
-    #
-    #     username.send_keys('angel')
-    #     password.send_keys('a')
-    #
-    #     self.driver.implicitly_wait(10)
-    #
-    #     submit = self.driver.find_element_by_id('submit')
-    #     submit.click()
-    #
-    #     self.driver.implicitly_wait(15)
-    #
-    #     try:
-    #         alert = self.driver.find_element_by_id('flash-alert')
-    #         self.fail("Alert should not be shown for successful login")
-    #     except:
-    #         pass
+    def test_login_should_not_raise_error_if_user_exists_in_db_and_correct_pw_provided(self):
+    
+         self.driver.get('http://localhost:5000/login')
+    
+         username = self.driver.find_element_by_id('username')
+         password = self.driver.find_element_by_id('password')
+    
+         username.send_keys('angel')
+         password.send_keys('a')
+    
+         self.driver.implicitly_wait(10)
+    
+         submit = self.driver.find_element_by_id('submit')
+         submit.click()
+    
+         self.driver.implicitly_wait(15)
+    
+         try:
+             alert = self.driver.find_element_by_id('flash-alert')
+             self.fail("Alert should not be shown for successful login")
+         except:
+             pass
 
 
 
