@@ -27,7 +27,7 @@
                 {% if current_user.is_anonymous %}
                   <span style="margin-left:20px">If you would like to save your progress or see how you've been going in my (FUN!) quizzes, make sure you log in!</span>
                   <br>
-                  <button type="button" class=" btn btn-purple btn-md" onClick="location.href='{{ url_for('login') }}'">
+                  <button type="button" class=" btn btn-md" onClick="location.href='{{ url_for('login') }}'">
                     Login
                     <i class="bi bi-door-open"></i>
                 {% else %}

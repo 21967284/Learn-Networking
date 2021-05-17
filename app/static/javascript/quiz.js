@@ -16,10 +16,14 @@ const ANSWERS_OPTIONS_TEMPLATE = ({name, id, value, text}) => `
 `
 const STARS_TEMPLATE = '<i class="bi bi-star-fill"></i>'
 
+const LAYER_ORDER = ['Link', 'Network', 'Transport', 'Application'];
+
+
 window.onload = onInit;
 
 function onInit() {
     $("#no-questions-alert").hide();
+    $("#quiz-previously-attempted-alert").hide();
     quizMode();
     loadQuizQuestions();
 }
@@ -33,7 +37,7 @@ function quizMode() {
 }
 
 /**
- * Turns page into 'quiz mode' by showing only the results card and hiding the explanation and quiz card
+ * Turns page into 'results mode' by showing only the results card and hiding the explanation and quiz card
  */
 function resultsMode() {
     $('#quiz-card').hide();
@@ -42,7 +46,8 @@ function resultsMode() {
 
 /**
  * Retrieve quiz questions from server
- * Use results to dynamically generate the quiz question form
+ * Shows alert if there are no quiz questions
+ * Otherwise, Calls on another function to dynamically build quiz form from result
  * Expected result format from server -
  * [{
  *     'questionContent': 'What is 1 + 1?',
@@ -63,75 +68,128 @@ function loadQuizQuestions() {
             topic: topic
         },
     }).done(result => {
-        SetAlertAndDisableButtonIfNoQuestions(result.data);
-
-        result.data.forEach(questionSet => {
-            const questionConfig = [{
-                'questionContent': questionSet.questionContent,
-                'questionId': questionSet.questionId
-            }];
-
-            $("#questions-form").append(questionConfig.map(QUESTIONS_TEMPLATE))
-
-            questionSet.answerOptions.forEach(option => {
-                const answerOptionsConfig = [{
-                    'name': `${questionSet.questionId}`,
-                    'id': `${option}`,
-                    'value': `${option}`,
-                    'text': `${option}`
-                }];
-
-                $(`#${questionSet.questionId}-container`).append(answerOptionsConfig.map(ANSWERS_OPTIONS_TEMPLATE))
-            });
-        });
-
+        if (!result.data.length) {
+            setAlertAndHideInnerQuizCard();
+        }
+        buildQuiz(result);
         $('#questions-spinner').hide();
     });
 }
 
-function SetAlertAndDisableButtonIfNoQuestions(result) {
-    console.log('reuslts.length', result.length);
-    if (!result.length) {
-        console.log('results.length less than 1')
-        $("#no-questions-alert").show();
-        $("#quiz-submit-button").hide();
-    }
+/**
+ * Dynamically builds the quiz form based
+ * @param result
+ */
+function buildQuiz(result) {
+    result.data.forEach(questionSet => {
+        const questionConfig = [{
+            'questionContent': questionSet.questionContent,
+            'questionId': questionSet.questionId
+        }];
+
+        $("#questions-form").append(questionConfig.map(QUESTIONS_TEMPLATE))
+
+        questionSet.answerOptions.forEach(option => {
+            console.log('')
+            const answerOptionsConfig = [{
+                'name': `${questionSet.questionId}`,
+                'id': `${option.id}`,
+                'value': `${option.answer}`,
+                'text': `${option.answer}`
+            }];
+            $(`#${questionSet.questionId}-container`).append(answerOptionsConfig.map(ANSWERS_OPTIONS_TEMPLATE))
+        });
+    });
 }
 
+/**
+ * Shows an alert indicating that there are no questions available for that particular topic
+ * Only used if server does not return any questions
+ * Hides the submit button as there is no quiz form to submit
+ */
+function setAlertAndHideInnerQuizCard() {
+    $("#no-questions-alert").show();
+    $("#inner-quiz-card").hide();
+}
+
+/**
+ * Sends form response to be evaluated by server
+ * Process the result and switch to results mode
+ */
 function evaluateSubmission() {
     //gives name based on question-id and returns value based on selected choice
-    const formData = $("form").serializeArray();
-    console.log('formdata', formData);
+    const form = $("form").serializeArray();
+    const mappedFormData = form.map(item => {
+        const question_id = item.name.replace("question-id-", "");
+        console.log('item', item);
+        return {
+            'question_id': question_id,
+            'answer': item.value
+        }
+    });
+    const currentTopic = document.title.replace(' Layer Quiz', '');
 
-    //TODO - ajax respond to save answer sto backend !!
+    const bodyData = {
+        topic: currentTopic,
+        quizData: mappedFormData
+    }
+    console.log('mapepdformdata', mappedFormData);
     $.ajax({
-        url: '/retrieve-results',
+        url: '/submit-quiz',
         type: "POST",
-        data: {formData}
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify(bodyData),
     }).done(result => {
-        console.log('result', result);
-        processResults(result);
-        resultsMode();
+        if (result.error) {
+            processError();
+        } else {
+            processResults(result.data);
+            resultsMode();
+        }
     })
 }
 
+function processError() {
+    $("#quiz-previously-attempted-alert").show();
+}
+
+/**
+ * process results by showing percentage result on screen and
+ * calculating and showing the number of stars to be awarded
+ * @param result
+ */
 function processResults(result) {
     setPercentage(result);
     calculateAndSetStars(result);
-
 }
 
+/**
+ * Displays the result on screen
+ * @param result
+ */
 function setPercentage(result) {
     const resultPercentage = result + '%';
     document.getElementById('results-percentage').innerHTML = resultPercentage;
     $("#results-percentage-spinner").hide();
 }
 
+/**
+ * Calculates how many stars should bae rewarded for the accuracy mark
+ * Each 20% is awareded one star
+ * 20%: 1 star, 40%: 2 star, 60%: 3 star, 80%: 4 star, 100%: 5star
+ * Calls on setStars to generate correct number of stars to show
+ * @param result
+ */
 function calculateAndSetStars(result) {
     const noOfStars = result / 20;
     setStars(noOfStars);
 }
 
+/**
+ * Function to alter the number of stars shown on screen for progress and accuracy tiles
+ * @param noOfStars - how many stars it should show
+ */
 function setStars(noOfStars) {
     for (i = 0; i < noOfStars; i++) {
         $("#results-star-container").append(STARS_TEMPLATE);
@@ -139,4 +197,13 @@ function setStars(noOfStars) {
 
     $("#results-star-spinner").hide();
     $("#results-star-container").show();
+}
+
+/**
+ * Proceeds to explanation section of next layer
+ */
+function proceedToNextLayer() {
+    const currentLayer = document.title.replace(' Layer Quiz', '');
+    const nextLayer = LAYER_ORDER[LAYER_ORDER.indexOf(currentLayer) + 1].toLowerCase();
+    window.location.href = `${nextLayer}`;
 }

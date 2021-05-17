@@ -6,17 +6,25 @@
 
     <div class="mx-5">
 
+        <div class="alert alert-danger" role="alert" id="quiz-previously-attempted-alert">
+            <i class="bi bi-exclamation-diamond"></i>
+            You've already done this quiz before! Please proceed to the next module.
+        </div>
+
+        <div class="alert alert-primary" role="alert" id="no-questions-alert">
+            <i class="bi bi-exclamation-circle"></i>
+            No questions have been set for this topic. Please contact your administrator.
+        </div>
+
+
         <!-- Quiz portion -->
         <div class="orange-glass-card p-3" id="quiz-card">
             <h4 class="white-text">Quiz</h4>
 
 
             <!--Form-->
-            <div class="card p-3">
-                <div class="alert alert-primary" role="alert" id="no-questions-alert">
-                    <i class="bi bi-exclamation-circle"></i>
-                    No questions have been set for this topic. Please contact your administrator.
-                </div>
+            <div class="card p-3" id="inner-quiz-card">
+
 
                 <!--Qestions loading spinner-->
                 <div class="spinner-border" role="status" id="questions-spinner">
@@ -25,7 +33,8 @@
 
                 <form id="questions-form"></form>
                 <div class=" d-flex justify-content-end mt-2">
-                    <button type="submit" class=" btn btn-green btn-lg" id="quiz-submit-button" onClick="evaluateSubmission()">
+                    <button type="submit" class=" btn btn-green btn-lg" id="quiz-submit-button"
+                            onClick="evaluateSubmission()">
                         Submit
                         <i class="bi bi-arrow-right"></i>
                     </button>
@@ -69,7 +78,7 @@
             </div>
 
             <div class=" d-flex justify-content-end mt-2">
-                <button type="button" class=" btn btn-purple btn-lg",
+                <button type="button" class=" btn btn-purple btn-lg" ,
                         onClick="location.href='{{ url_for('network') }}'">
                     To the next Layer!
                     <i class="bi bi-arrow-right"></i>

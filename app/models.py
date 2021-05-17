@@ -39,17 +39,12 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def is_admin(self):
-        return self.admin
-
-    # stub for actual method
-    def retrieve_results(self):
-        pass
-
-    # stub for actual method
-    def retrieve_progress(self):
-        pass
-
+    def update_progress(self, progress):
+        if progress >= self.progress:
+            self.progress = progress
+            return True
+        else:
+            return False
 
 
 # store questions in a table
@@ -65,6 +60,7 @@ class Question(db.Model):
     # provides a list of answer options to be presented to the user
     answer_options = db.relationship('Answer', backref='question', lazy='dynamic')
     users = db.relationship('User', secondary='mark')
+
 
     def __repr__(self):
         return 'Question {}'.format(self.question)

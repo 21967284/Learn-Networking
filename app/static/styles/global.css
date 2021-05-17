@@ -2,33 +2,37 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200;400&family=Major+Mono+Display&family=Press+Start+2P&display=swap');
 
 /*Consistent Colours*/
-:root{
+:root {
     --purple: #300a24;
-    --green-text: #4e9c00;
-    --green: #70E000;
+    --dark-green: #4e9c00;
+    --light-green: #70E000;
+    --dark-grey: #363837;
+    --green: #5CB800;
     --orange: #FAA613;
-    --shadow: #11030D;
     --yellow: #f7ef00;
 }
 
 /*Element styling*/
 body {
-    background-color: black;/*var(--purple);*/
+    background-color: black; /*var(--purple);*/
     color: black;
     font-family: 'JetBrains Mono', monospace;
 }
 
-.card a { color: var(--purple)}
+.card a {
+    color: var(--purple)
+}
 
 a {
     color: white;
 }
+
 a:hover {
-    color: var(--green-text);
+    color: var(--dark-green);
 }
 
 form > input {
-    color:black
+    color: black
 }
 
 /*Font classes*/
@@ -48,8 +52,8 @@ form > input {
 /*cards*/
 /*Obtained from https://glassmorphism.com/*/
 .green-glass-card {
-    background:var(--green);
-    box-shadow: 0 8px 32px 0 var(--shadow);
+    background: var(--light-green);
+    box-shadow: 0 8px 30px 0 darkolivegreen;
     backdrop-filter: blur(3.0px);
     -webkit-backdrop-filter: blur(3.0px);
     border-radius: 10px;
@@ -58,7 +62,7 @@ form > input {
 
 .transparent-glass-card {
     background: rgba(255, 255, 255, 0.35);
-    box-shadow: 0 8px 32px 0 var(--shadow);
+    box-shadow: 0 8px 30px 0 var(--dark-grey);
     backdrop-filter: blur(3.0px);
     -webkit-backdrop-filter: blur(3.0px);
     border-radius: 10px;
@@ -67,37 +71,39 @@ form > input {
 
 .orange-glass-card {
     background: var(--orange);
-    box-shadow: 0 8px 32px 0 var(--shadow);
-    backdrop-filter: blur( 3.0px );
-    -webkit-backdrop-filter: blur( 3.0px );
+    box-shadow: 0 8px 25px 0 darkorange;
+    backdrop-filter: blur(3.0px);
+    -webkit-backdrop-filter: blur(3.0px);
     border-radius: 10px;
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 /*button*/
 .btn-purple {
     color: var(--purple);
     background-color: white;
-    border-color: black;/*var(--purple);*/
+    border-color: black;
     border-radius: 0.5em;
     border-width: medium;
 }
+
 .btn-purple:hover {
     color: white;
-    background-color: black;/*var(--purple);*/
+    background-color: black;
     border-color: white;
 }
 
 .btn-green {
-    color: #5CB800;
+    color: var(--green);
     background-color: white;
-    border-color: #5CB800;
+    border-color: var(--green);
     border-radius: 0.5em;
     border-width: medium;
 }
-.btn-green:hover {
+
+button:hover {
     color: white;
-    background-color: #5CB800;
+    background-color: var(--green);
     border-color: white;
 }
 
