@@ -90,7 +90,6 @@ function buildQuiz(result) {
         $("#questions-form").append(questionConfig.map(QUESTIONS_TEMPLATE))
 
         questionSet.answerOptions.forEach(option => {
-            console.log('')
             const answerOptionsConfig = [{
                 'name': `${questionSet.questionId}`,
                 'id': `${option.id}`,
@@ -121,7 +120,6 @@ function evaluateSubmission() {
     const form = $("form").serializeArray();
     const mappedFormData = form.map(item => {
         const question_id = item.name.replace("question-id-", "");
-        console.log('item', item);
         return {
             'question_id': question_id,
             'answer': item.value
@@ -133,7 +131,6 @@ function evaluateSubmission() {
         topic: currentTopic,
         quizData: mappedFormData
     }
-    console.log('mapepdformdata', mappedFormData);
     $.ajax({
         url: '/submit-quiz',
         type: "POST",
@@ -197,13 +194,4 @@ function setStars(noOfStars) {
 
     $("#results-star-spinner").hide();
     $("#results-star-container").show();
-}
-
-/**
- * Proceeds to explanation section of next layer
- */
-function proceedToNextLayer() {
-    const currentLayer = document.title.replace(' Layer Quiz', '');
-    const nextLayer = LAYER_ORDER[LAYER_ORDER.indexOf(currentLayer) + 1].toLowerCase();
-    window.location.href = `${nextLayer}`;
 }
