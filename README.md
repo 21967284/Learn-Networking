@@ -1,10 +1,10 @@
 # A Journey Through the TCP/IP Model
 
-Written by Alex Wyatt and Angel Thanur
+Written by [Alex Wyatt](https://github.com/227345554) and [Angel Thanur] (https://github.com/21967284).
 
 ##Project Brief
 
-This app was developed as a part of CITS3403 (Agile Web Development). The Task was to write a web application that simulates a learning experience on any topic, applies some assessment and feedback of these learning at the end. 
+This app was developed as a part of CITS3403 (Agile Web Development). The task was to write a web application that simulates a learning experience on any topic, applies some assessment and feedback of these learning at the end. 
 
 The app was written using HTML, CSS, JavaScript (AJAX, Jquery, bootstrap) and Python(Flask).
 
