@@ -1,6 +1,6 @@
 # A Journey Through the TCP/IP Model
 
-Written by [Alex Wyatt](https://github.com/227345554) and [Angel Thanur] (https://github.com/21967284).
+Written by [Alex Wyatt](https://github.com/227345554) and [Angel Thanur](https://github.com/21967284).
 
 ##Project Brief
 
