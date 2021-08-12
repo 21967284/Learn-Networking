@@ -201,8 +201,15 @@ def auto_create_login():
     db.session.commit()
 
 def auto_clear_database():
-    db.session.query(User).delete()
-    db.session.query(Question).delete()
-    db.session.query(Answer).delete()
-    db.session.query(Mark).delete()
-    db.session.commit()
+    #db.session.query(User).delete()
+    #db.session.query(Question).delete()
+    #db.session.query(Answer).delete()
+    #db.session.query(Mark).delete()
+    #db.session.commit()
+    clear_data(db.session)
+
+def clear_data(session):
+    meta = db.metadata
+    for table in reversed(meta.sorted_tables):
+        session.execute(table.delete())
+    session.commit()
