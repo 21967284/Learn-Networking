@@ -57,9 +57,9 @@ class Question(db.Model):
     __tablename__ = 'question'
     question_id = db.Column(db.Integer, primary_key=True)
     # refers to the content section the question appears in
-    section = db.Column(db.String(128))
+    section = db.Column(db.String(1280))
     # holds the question's text - what the user sees
-    question = db.Column(db.String(128), unique=True)
+    question = db.Column(db.String(1280), unique=True)
     # which answer is correct
     correct_answer = db.Column(db.String(128))
     # provides a list of answer options to be presented to the user
@@ -75,7 +75,7 @@ class Question(db.Model):
 class Answer(db.Model):
     __tablename__ = 'answer'
     answer_id = db.Column(db.Integer, primary_key=True)
-    answer = db.Column(db.String(128))
+    answer = db.Column(db.String(1280))
     question_id_fk = db.Column(db.Integer, db.ForeignKey('question.question_id'))
 
     def __repr__(self):
