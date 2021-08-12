@@ -12,7 +12,7 @@ app.config.from_object(Config)
 #app.config.from_object(TestingConfig)
 # handle database management using SQLAlchemy and Flask-migrate (for portable databases)
 db = SQLAlchemy(app)
-migrate = Migrate(app, db, render_as_batch=True)
+migrate = Migrate(app, db, render_as_batch=True, compare_type=True)
 # handle user authentification for logins
 login = LoginManager(app)
 login.login_view = 'login'
