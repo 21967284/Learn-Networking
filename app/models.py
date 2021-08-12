@@ -61,7 +61,7 @@ class Question(db.Model):
     # holds the question's text - what the user sees
     question = db.Column(db.String(128), unique=True)
     # which answer is correct
-    correct_answer = db.Column(db.Integer)
+    correct_answer = db.Column(db.String(128))
     # provides a list of answer options to be presented to the user
     answer_options = db.relationship('Answer', backref='question', lazy='dynamic')
     users = db.relationship('Mark', back_populates="question")#secondary='mark', back_populates="questions")
