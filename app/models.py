@@ -27,7 +27,7 @@ class User(UserMixin, db.Model):
     # password stored as a hash for security
     password_hash = db.Column(db.String(128))
     # there is a M:M relationship between User and Question
-    questions = db.relationship('Mark', back_populates="user")#secondary='mark', back_populates="users")
+    questions = db.relationship('Mark', back_populates="user", cascade="all, delete-orphan")#secondary='mark', back_populates="users")
     progress = db.Column(db.Integer, default=0)
 
     # define how entries into this table are represented
@@ -63,7 +63,7 @@ class Question(db.Model):
     # which answer is correct
     correct_answer = db.Column(db.String(128))
     # provides a list of answer options to be presented to the user
-    answer_options = db.relationship('Answer', backref='question', lazy='dynamic')
+    answer_options = db.relationship('Answer', backref='question', lazy='dynamic', cascade="all, delete-orphan")
     users = db.relationship('Mark', back_populates="question")#secondary='mark', back_populates="questions")
 
 
@@ -88,8 +88,8 @@ class Mark(db.Model):
     mark = db.Column(db.Integer)
     question_id_fk = db.Column(db.Integer, db.ForeignKey('question.question_id'), primary_key=True)
     user_id_fk = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    user = db.relationship('User', back_populates="questions")
-    question = db.relationship('Question', back_populates="users")
+    user = db.relationship('User', back_populates="questions", cascade="all, delete-orphan")
+    question = db.relationship('Question', back_populates="users", cascade="all, delete-orphan")
 
     def __repr__(self):
         return 'Mark {}'.format(self.mark)
