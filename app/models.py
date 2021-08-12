@@ -88,8 +88,8 @@ class Mark(db.Model):
     mark = db.Column(db.Integer)
     question_id_fk = db.Column(db.Integer, db.ForeignKey('question.question_id'), primary_key=True)
     user_id_fk = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    user = db.relationship('User', back_populates="questions", cascade="all, delete-orphan")
-    question = db.relationship('Question', back_populates="users", cascade="all, delete-orphan")
+    user = db.relationship('User', back_populates="questions")
+    question = db.relationship('Question', back_populates="users")
 
     def __repr__(self):
         return 'Mark {}'.format(self.mark)
