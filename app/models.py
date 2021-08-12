@@ -64,7 +64,7 @@ class Question(db.Model):
     correct_answer = db.Column(db.String(128))
     # provides a list of answer options to be presented to the user
     answer_options = db.relationship('Answer', backref='question', lazy='dynamic', cascade="all,delete")
-    users = db.relationship('Mark', back_populates="question")#secondary='mark', back_populates="questions")
+    users = db.relationship('Mark', back_populates="question", cascade="all,delete")#secondary='mark', back_populates="questions")
 
 
     def __repr__(self):
